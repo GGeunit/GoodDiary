@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일기 상세 보기</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -87,6 +89,11 @@
             font-size: 16px;
             color: #333;
         }
+
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -111,6 +118,10 @@
                     }
                 %>
             </div>
+
+            <div class="button-container">
+                <a href="/GoodDiary/Diary" class="btn btn-light">목록으로</a>
+            </div>
         </div>
 
         <div class="sidebar">
@@ -123,5 +134,7 @@
             </ul>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
