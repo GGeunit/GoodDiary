@@ -9,7 +9,7 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FFEDC2; /* 배경색을 따뜻한 톤으로 설정 */
+            background-color: #FFEDC2; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -102,7 +102,7 @@
 </head>
 <body>
     <div class="signup-container">
-        <img src="../images/goodDiary.png" alt="Logo"> <!-- 로고 이미지 -->
+        <img src="../images/goodDiary.png" alt="Logo">
         <h1>Good.Diary</h1>
         <p>Welcome! <br> Join The Community</p>
 

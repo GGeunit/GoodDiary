@@ -20,5 +20,4 @@ import java.util.List;
 @MultipartConfig(maxFileSize=1024*1024*2, location="c:/Temp/img")
 public class DiaryController extends HttpServlet {
 	
-	
 }
