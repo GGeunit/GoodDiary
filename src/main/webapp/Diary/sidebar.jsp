@@ -4,15 +4,15 @@
 <div class="sidebar">
     <ul class="menu">
         <!-- 각 메뉴 항목에 하이퍼링크 추가 -->
+        <li>
+            <a class="btn">
+                반가워요 `<c:out value="${user.username}" default=" " />`님 😍
+            </a>
+        </li>
         <li><a href="/GoodDiary/Diary/diaryPage.jsp" class="btn">일기 작성 ✏️</a></li>
         <li><a href="emotionLog.jsp" class="btn">일기 목록 📚</a></li>
         <li><a href="calendar.jsp" class="btn">캘린더 🗓️</a></li>
         <li><a href="dataVisualization.jsp" class="btn">데이터 시각화 🔍</a></li>
-        <li>
-            <a href="settings.jsp" class="btn">
-                반가워요 `<c:out value="${user.userId}" default=" " />`님 😍
-            </a>
-        </li>
         <li><a href="/GoodDiary/user/login.jsp" class="btn">로그인</a></li>
         <li><a href="/GoodDiary/logout" class="btn">로그아웃</a></li>
     </ul>
@@ -38,7 +38,7 @@
         padding: 10px 20px;
         text-decoration: none;
         box-sizing: border-box;
-        width: 180px;
+        width: 230px;
         background-color: orange;
         color: black;
         font-size: 16px;
