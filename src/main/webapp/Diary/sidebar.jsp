@@ -10,7 +10,7 @@
             </a>
         </li>
         <li><a href="/GoodDiary/Diary/diaryPage.jsp" class="btn">일기 작성 ✏️</a></li>
-        <li><a href="emotionLog.jsp" class="btn">일기 목록 📚</a></li>
+        <li><a href="/GoodDiary/Diary" class="btn">일기 목록 📚</a></li>
         <li><a href="calendar.jsp" class="btn">캘린더 🗓️</a></li>
         <li><a href="dataVisualization.jsp" class="btn">데이터 시각화 🔍</a></li>
         <li><a href="/GoodDiary/user/login.jsp" class="btn">로그인</a></li>
