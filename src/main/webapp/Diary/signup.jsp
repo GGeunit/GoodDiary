@@ -122,14 +122,7 @@
             Already a member? <a href="login.jsp">Login here →</a>
         </div>
         
-        
-        asdfa
-        
-        asdfasdf
-        a
-        sdfasd
-        f
-        
+
     </div>
 </body>
 </html>
