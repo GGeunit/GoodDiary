@@ -92,6 +92,8 @@
             background-size: cover;
         }
     </style>
+    <script>
+    </script>
 </head>
 <body>
     <div class="container">
