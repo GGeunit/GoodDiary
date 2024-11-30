@@ -115,9 +115,9 @@
 			            <a href="/GoodDiary/Diary?action=view&id=${diary.recordId}" class="diary-title">${diary.title}</a>
 			            <div class="diary-date">${diary.date}</div>
     			        <c:choose>
-			                <c:when test="${diary.emotion == '기쁨'}">기쁨일때이모티콘</c:when>
-			                <c:when test="${diary.emotion == '슬픔'}">슬픔일때이모티콘</c:when>
-			                <c:when test="${diary.emotion == '화남'}">화남일때이모티콘</c:when>
+			                <c:when test="${diary.emotion == '기쁨'}"><span class="emoji">😊</span></c:when>
+			                <c:when test="${diary.emotion == '슬픔'}"><span class="emoji">😭</span></c:when>
+			                <c:when test="${diary.emotion == '화남'}"><span class="emoji">😠</span></c:when>
 			                <c:otherwise>🤔</c:otherwise>
 			            </c:choose>
 			        </div>
