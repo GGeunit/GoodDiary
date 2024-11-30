@@ -13,8 +13,7 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns={"/Diary"})
 public class DiaryController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
+
 	private DiaryDAO dao;
 	private ServletContext ctx;
 
@@ -28,6 +27,5 @@ public class DiaryController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     		
     }
-	
-	
 }
+	

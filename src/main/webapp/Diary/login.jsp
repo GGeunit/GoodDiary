@@ -100,7 +100,7 @@
             <p>당신의 감정이 이야기가 됩니다.<br>오늘의 일기를 작성해 보세요.</p>
             <p>환영합니다! 계정에 로그인하세요.</p>
             <form action="loginAction.jsp" method="post">
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="name" placeholder="User name" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <div class="checkbox-container">
                     <input type="checkbox" name="rememberMe" id="rememberMe">

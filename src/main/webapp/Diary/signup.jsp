@@ -106,18 +106,14 @@
         <h1>Good.Diary</h1>
         <p>Welcome! <br> Join The Community</p>
 
-        <form action="signupProcess.jsp" method="post">
+        <form action="Signup" method="post">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="goodDiary@gmail.com" required>
+                <label for="name">User name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your user name" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
             </div>
             <button type="submit" class="signup-btn">Sign Up</button>
         </form>
