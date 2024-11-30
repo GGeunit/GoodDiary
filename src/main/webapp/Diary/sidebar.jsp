@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <div class="sidebar">
 	
-	<div class="toplogo"><img src="../images/GoodDiary.img"></div>
+	<div class="toplogo"><img src="../images/goodDiary.img"></div>
 
     <ul class="menu">
         <!-- 각 메뉴 항목에 하이퍼링크 추가 -->
