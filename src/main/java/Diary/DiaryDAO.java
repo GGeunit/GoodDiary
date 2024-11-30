@@ -109,9 +109,4 @@ public class DiaryDAO {
 		}
 	}
 	
-	// 회원가입 메서드
-	public void signup(Diary n) {
-		
-	}
-	
 }

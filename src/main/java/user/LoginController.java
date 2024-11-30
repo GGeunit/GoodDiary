@@ -23,19 +23,18 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // 사용자 인증
-        if (userDAO.authenticate(username, password)) {
-            // 인증 성공 -> 세션 생성 및 사용자 정보 저장
-            HttpSession session = request.getSession();
-            session.setAttribute("username", username);
-            session.setAttribute("name", userDAO.getUserName(username));
-
-            // 대시보드 또는 메인 페이지로 리다이렉트
-            response.sendRedirect("diary.nhn?action=listDiary");
-        } else {
-            // 인증 실패 -> 에러 메시지와 함께 로그인 페이지로 포워딩
-            request.setAttribute("error", "아이디 또는 비밀번호가 잘못되었습니다!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
+//        // 사용자 인증
+//        if (userDAO.authenticate(username, password)) {
+//            // 인증 성공 -> 세션 생성 및 사용자 정보 저장
+//            HttpSession session = request.getSession();
+//            session.setAttribute("username", username);
+//
+//            // 대시보드 또는 메인 페이지로 리다이렉트
+//            response.sendRedirect("diary.nhn?action=listDiary");
+//        } else {
+//            // 인증 실패 -> 에러 메시지와 함께 로그인 페이지로 포워딩
+//            request.setAttribute("error", "아이디 또는 비밀번호가 잘못되었습니다!");
+//            request.getRequestDispatcher("login.jsp").forward(request, response);
+//        }
     }
 }
