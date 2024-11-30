@@ -22,12 +22,13 @@ public class DiaryDAO {
 
     // CREATE: 새로운 다이어리 추가
     public void addDiary(Diary diary) throws SQLException {
-        String query = "INSERT INTO emotionRecord (title, date, emotion, content) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO emotionRecord (user_id, title, date, emotion, content) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = open(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, diary.getTitle());
-            pstmt.setString(2, diary.getDate());
-            pstmt.setString(3, diary.getEmotion());
-            pstmt.setString(4, diary.getContent());
+        	pstmt.setInt(1, diary.getAid());
+            pstmt.setString(2, diary.getTitle());
+            pstmt.setString(3, diary.getDate());
+            pstmt.setString(4, diary.getEmotion());
+            pstmt.setString(5, diary.getContent());
             pstmt.executeUpdate();
         }
     }

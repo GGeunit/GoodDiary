@@ -101,6 +101,7 @@ public class DiaryController extends HttpServlet {
         diary.setDate(request.getParameter("date"));
         diary.setEmotion(request.getParameter("emotion")); // 감정 필드 추가
         diary.setContent(request.getParameter("content"));
+        diary.setAid(Integer.parseInt(request.getParameter("user_id")));
 
         dao.addDiary(diary);
         response.sendRedirect("Diary?action=list");
