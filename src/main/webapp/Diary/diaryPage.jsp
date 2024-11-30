@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>감정 기록</title>
+    <!-- JavaScript 파일 경로 설정 -->
+    <script src="../javaScript/diaryPage.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
