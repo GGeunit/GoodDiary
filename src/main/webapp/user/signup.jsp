@@ -119,8 +119,10 @@
         </form>
 
         <div class="footer-text">
-            Already a member? <a href="login.jsp">Login here</a>
+            Already a member? <a href="login.jsp">Login here →</a>
         </div>
+        
+
     </div>
     
     <%
