@@ -93,6 +93,12 @@
         }
     </style>
     <script>
+    	window.onload = function() {
+    		const message = '<%= request.getAttribute("message") != null ? request.getAttribute("message"): ""%>';
+    		if(message) {
+    			alert(message);
+    		}
+    	}
     </script>
 </head>
 <body>
@@ -101,7 +107,7 @@
             <h1><img src="../images/goodDiary.png" alt="Logo"> Good.Diary</h1>
             <p>당신의 감정이 이야기가 됩니다.<br>오늘의 일기를 작성해 보세요.</p>
             <p>환영합니다! 계정에 로그인하세요.</p>
-            <form action="loginAction.jsp" method="post">
+            <form action="/GoodDiary/signup?action=addUser" method="post">
                 <input type="text" name="name" placeholder="User name" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <div class="checkbox-container">
