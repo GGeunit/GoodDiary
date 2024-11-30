@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.*" %>
+<%@ page import="java.util.*, Diary.Diary" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -108,45 +108,38 @@
             <div class="header">내 일기 목록</div>
             <div class="diary-list">
                 <%
-                    // 서버에서 가져온 일기 데이터를 가정
-                    List<Map<String, String>> diaryList = new ArrayList<>();
-                    Map<String, String> diary1 = new HashMap<>();
-                    diary1.put("title", "첫 번째 일기");
-                    diary1.put("date", "2024-11-01");
-                    diaryList.add(diary1);
-
-                    Map<String, String> diary2 = new HashMap<>();
-                    diary2.put("title", "두 번째 일기");
-                    diary2.put("date", "2024-11-02");
-                    diaryList.add(diary2);
-
-                    Map<String, String> diary3 = new HashMap<>();
-                    diary3.put("title", "세 번째 일기");
-                    diary3.put("date", "2024-11-03");
-                    diaryList.add(diary3);
-
-                    // 일기 목록 출력
-                    for (Map<String, String> diary : diaryList) {
+                    // Controller에서 전달된 diaries 속성 가져오기
+                    List<Diary> diaryList = (List<Diary>) request.getAttribute("diaries");
+                    if (diaryList != null && !diaryList.isEmpty()) {
+                        for (Diary diary : diaryList) {
                 %>
                 <div class="diary-item">
-                    <div class="diary-title"><%= diary.get("title") %></div>
-                    <div class="diary-date"><%= diary.get("date") %></div>
+                    <a href="Diary?action=view&id=<%= diary.getAid() %>" class="diary-title"><%= diary.getTitle() %></a>
+                    <div class="diary-date"><%= diary.getDate() %></div>
                 </div>
+                <%
+                        }
+                    } else {
+                %>
+                <div>일기가 없습니다.</div>
                 <%
                     }
                 %>
             </div>
         </div>
-        <div class="sidebar">
-            <ul class="menu">
-                <li>일기 작성</li>
-                <li>캘린더</li>
-                <li>감정 기록</li>
-                <li>데이터 시각화</li>
-                <li>설정</li>
-            </ul>
-            <div class="add-button">+</div>
-        </div>
-    </div>
+		<div class="sidebar">
+		    <ul class="menu">
+		        <!-- 각 메뉴 항목에 하이퍼링크 추가 -->
+		        <li><a href="/GoodDiary/Diary/diaryPage.jsp" style="text-decoration: none; color: inherit;">일기 작성</a></li>
+		        <li><a href="calendar.jsp" style="text-decoration: none; color: inherit;">캘린더</a></li>
+		        <li><a href="emotionLog.jsp" style="text-decoration: none; color: inherit;">감정 기록</a></li>
+		        <li><a href="dataVisualization.jsp" style="text-decoration: none; color: inherit;">데이터 시각화</a></li>
+		        <li><a href="settings.jsp" style="text-decoration: none; color: inherit;">설정</a></li>
+		    </ul>
+		    <!-- 플러스 버튼도 페이지 이동 -->
+		    <div class="add-button">
+		        <a href="/GoodDiary/Diary/diaryPage.jsp" style="text-decoration: none; color: white;">+</a>
+		    </div>
+		</div>
 </body>
 </html>
