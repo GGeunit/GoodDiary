@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <div class="sidebar">
+	
+	<div class="toplogo"><img src="../images/GoodDiary.img"></div>
+
     <ul class="menu">
         <!-- 각 메뉴 항목에 하이퍼링크 추가 -->
         <li>
@@ -16,13 +19,13 @@
         <li><a href="/GoodDiary/user/login.jsp" class="btn">로그인</a></li>
         <li><a href="/GoodDiary/logout" class="btn">로그아웃</a></li>
     </ul>
-    <!-- 플러스 버튼도 페이지 이동 -->
-    <div class="add-button">
-        <a href="/GoodDiary/Diary/diaryPage.jsp" style="text-decoration: none; color: white;">+</a>
-    </div>
 </div>
 
 <style>
+	.toplogo {
+		margin: 0 auto;
+	}
+
     .menu {
         list-style: none;
         padding: 0;
@@ -50,29 +53,5 @@
         color: black;
         transform: scale(1.05);
         font-size: 17px;
-    }
-
-    .add-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: Orange;
-        color: white;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 30px;
-        margin: 20px auto 0;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .add-button a {
-        color: white;
-        text-decoration: none;
-    }
-
-    .add-button:hover {
-        background-color: #ff5050;
-        transform: scale(1.1);
     }
 </style>
