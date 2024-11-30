@@ -47,7 +47,7 @@
         .form-section form {
             margin-top: 20px;
         }
-        .form-section form input[type="email"],
+        .form-section form input[type="text"],
         .form-section form input[type="password"] {
             width: 100%;
             padding: 10px;
