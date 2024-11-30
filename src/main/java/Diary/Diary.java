@@ -1,11 +1,22 @@
 package Diary;
 
 public class Diary {
+	private int recordId;
 	private int aid;
 	private String title;
 	private String date;
 	private String emotion;
 	private String content;
+
+	
+
+	public int getRecordId() {
+		return recordId;
+	}
+
+	public void setRecordId(int recordId) {
+		this.recordId = recordId;
+	}
 
 	public int getAid() {
 		return aid;
