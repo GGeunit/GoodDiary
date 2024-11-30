@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.*, Diary.Diary" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -108,20 +108,30 @@
             <div class="header">내 일기 목록</div>
             <div class="diary-list">
                 <%
-                    // Controller에서 전달된 diaries 속성 가져오기
-                    List<Diary> diaryList = (List<Diary>) request.getAttribute("diaries");
-                    if (diaryList != null && !diaryList.isEmpty()) {
-                        for (Diary diary : diaryList) {
+                    // 서버에서 가져온 일기 데이터를 가정
+                    List<Map<String, String>> diaryList = new ArrayList<>();
+                    Map<String, String> diary1 = new HashMap<>();
+                    diary1.put("title", "첫 번째 일기");
+                    diary1.put("date", "2024-11-01");
+                    diaryList.add(diary1);
+
+                    Map<String, String> diary2 = new HashMap<>();
+                    diary2.put("title", "두 번째 일기");
+                    diary2.put("date", "2024-11-02");
+                    diaryList.add(diary2);
+
+                    Map<String, String> diary3 = new HashMap<>();
+                    diary3.put("title", "세 번째 일기");
+                    diary3.put("date", "2024-11-03");
+                    diaryList.add(diary3);
+
+                    // 일기 목록 출력
+                    for (Map<String, String> diary : diaryList) {
                 %>
                 <div class="diary-item">
-                    <div class="diary-title"><%= diary.getTitle() %></div>
-                    <div class="diary-date"><%= diary.getDate() %></div>
+                    <div class="diary-title"><%= diary.get("title") %></div>
+                    <div class="diary-date"><%= diary.get("date") %></div>
                 </div>
-                <%
-                        }
-                    } else {
-                %>
-                <div>일기가 없습니다.</div>
                 <%
                     }
                 %>
