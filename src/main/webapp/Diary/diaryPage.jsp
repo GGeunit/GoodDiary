@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,12 +15,10 @@
             padding: 0;
             background-color: #fbecee;
         }
-
         .container {
             display: flex;
             height: 100vh;
         }
-
         .sidebar {
             width: 20%;
             background-color: #f8d66b;
@@ -28,23 +27,19 @@
             flex-direction: column;
             justify-content: space-between;
         }
-
         .menu {
             list-style: none;
             padding: 0;
         }
-
         .menu li {
             margin-bottom: 20px;
             font-size: 16px;
             color: #5c5c5c;
             cursor: pointer;
         }
-
         .menu li:last-child {
             margin-bottom: 0;
         }
-
         .add-button {
             display: flex;
             justify-content: center;
@@ -57,12 +52,10 @@
             cursor: pointer;
             font-size: 30px;
         }
-
         .main {
             width: 80%;
             padding: 20px;
         }
-
         .header {
             background-color: #f8d66b;
             text-align: center;
@@ -72,19 +65,16 @@
             border-radius: 10px;
             margin-bottom: 20px;
         }
-
         .form-container {
             background-color: #f8d66b;
             border-radius: 10px;
             padding: 20px;
         }
-
         .form-group {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
         }
-
         .form-group input {
             flex: 1;
             margin-right: 10px;
@@ -93,11 +83,9 @@
             border: none;
             border-radius: 5px;
         }
-
         .form-group input:last-child {
             margin-right: 0;
         }
-
         .textarea {
             width: 100%;
             height: 150px;
@@ -107,12 +95,10 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
-
         .button-group {
             display: flex;
             justify-content: space-between;
         }
-
         .button {
             padding: 10px 20px;
             font-size: 16px;
@@ -122,10 +108,17 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
         .button:hover {
             background-color: #ffd27d;
         }
+        .emoji {
+        font-size: 24px;
+        transition: transform 0.3s, color 0.3s;
+    	}
+	    .emoji:hover {
+    	    transform: scale(1.2);
+        	color: orange;
+    	}
     </style>
 </head>
 <body>
@@ -134,11 +127,24 @@
             <div class="header">오늘 하루 나의 감정을 적어보아요</div>
             <div class="form-container">
                 <form action="/GoodDiary/Diary?action=add" method="post">
-                	<input type="hidden" name="user_id" value="5">
+                	<input type="hidden" name="user_id" value="${user.userId}">
                     <div class="form-group">
                         <input type="text" name="title" placeholder="제목">
                         <input type="date" name="date">
-                        <input type="text" name="emotion" placeholder="감정">
+        				<div style="display: flex; justify-content: space-between; margin-top: 10px;">
+    						<label style="display: flex; align-items: center; margin-right: 10px; cursor: pointer;">
+        						<input type="radio" name="emotion" value="기쁨" required style="margin-right: 5px;">
+        						<span class="emoji">😊</span>
+    						</label>
+    						<label style="display: flex; align-items: center; margin-right: 10px; cursor: pointer;">
+        						<input type="radio" name="emotion" value="슬픔" required style="margin-right: 5px;">
+        						<span class="emoji">😭</span>
+    						</label>
+    						<label style="display: flex; align-items: center; cursor: pointer;">
+        						<input type="radio" name="emotion" value="화남" required style="margin-right: 5px;">
+        						<span class="emoji">😠</span>
+    						</label>
+						</div>
                     </div>
                     <textarea class="textarea" name="content" placeholder="감정 기록"></textarea>
                     <div class="button-group">
@@ -148,16 +154,7 @@
                 </form>
             </div>
         </div>
-        <div class="sidebar">
-            <ul class="menu">
-                <li>일기 작성</li>
-                <li>캘린더</li>
-                <li>감정 기록</li>
-                <li>데이터 시각화</li>
-                <li>설정</li>
-            </ul>
-            <div class="add-button">+</div>
-        </div>
+
     </div>
 </body>
 </html>

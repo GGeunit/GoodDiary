@@ -3,6 +3,8 @@ package Diary;
 import java.io.IOException;
 import java.util.List;
 
+import user.*;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
@@ -11,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns={"/Diary"})
 public class DiaryController extends HttpServlet {
@@ -79,8 +83,24 @@ public class DiaryController extends HttpServlet {
 
     // List all diary entries
     private void listDiaries(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<Diary> diaries = dao.getAllDiaries();
+        // 세션에서 사용자 정보 가져오기
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
+
+        if (currentUser == null) {
+            // 로그인 상태가 아니면 로그인 페이지로 리다이렉트
+            response.sendRedirect("/GoodDiary/user/login.jsp?error=notLoggedIn");
+            return;
+        }
+
+        // 현재 사용자의 userId로 다이어리 목록 가져오기
+        int userId = currentUser.getUserId();
+        List<Diary> diaries = dao.getDiariesByUserId(userId);
+//        List<Diary> diaries = dao.getAllDiaries();
+        // 요청에 다이어리 목록을 속성으로 추가
         request.setAttribute("diaries", diaries);
+
+        // JSP로 포워드
         RequestDispatcher dispatcher = request.getRequestDispatcher("Diary/diaryListPage.jsp");
         dispatcher.forward(request, response);
     }

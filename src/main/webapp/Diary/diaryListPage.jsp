@@ -105,7 +105,7 @@
 <body>
     <div class="container">
         <div class="main">
-            <div class="header">내 일기 목록</div>
+            <div class="header"><b>내 일기 목록</b></div>
             <div class="diary-list">
                 <%
                     // Controller에서 전달된 diaries 속성 가져오기
@@ -127,6 +127,7 @@
                 %>
             </div>
         </div>
+
 		<div class="sidebar">
 		    <ul class="menu">
 		        <!-- 각 메뉴 항목에 하이퍼링크 추가 -->
@@ -141,5 +142,6 @@
 		        <a href="/GoodDiary/Diary/diaryPage.jsp" style="text-decoration: none; color: white;">+</a>
 		    </div>
 		</div>
+
 </body>
 </html>

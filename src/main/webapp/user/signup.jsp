@@ -99,6 +99,18 @@
             text-decoration: underline;
         }
     </style>
+    <script>
+    	window.onload = function() {
+
+    		console.log("현재 URL:", window.location.href);
+    		const params = new URLSearchParams(window.location.search);
+    		const result = params.get("result");
+    	    console.log("Result 값:", result);
+    		if(result === 'success') {
+    			alert('회원가입이 완료되었습니다.');
+    		}
+    	}
+    </script>
 </head>
 <body>
     <div class="signup-container">
