@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.*, Diary.Diary" %>
+<%@ page import="Diary.Diary" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>일기 목록</title>
+    <title>일기 상세 보기</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -44,19 +44,6 @@
             margin-bottom: 0;
         }
 
-        .add-button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #ff7070;
-            color: white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            font-size: 30px;
-        }
-
         .main {
             width: 80%;
             padding: 20px;
@@ -72,56 +59,54 @@
             margin-bottom: 20px;
         }
 
-        .diary-list {
+        .diary-detail {
             background-color: #fff8dc;
             border-radius: 10px;
             padding: 20px;
         }
 
-        .diary-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #ffefd5;
-            border-radius: 5px;
-        }
-
-        .diary-item:hover {
-            background-color: #ffd27d;
-        }
-
         .diary-title {
-            font-size: 16px;
+            font-size: 24px;
             color: #5c5c5c;
+            text-align: center;
         }
 
         .diary-date {
-            font-size: 14px;
+            font-size: 16px;
             color: #888;
+            text-align: right;
+        }
+
+        .diary-emotion {
+            font-size: 18px;
+            color: #ff7070;
+        }
+
+        .diary-content {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="main">
-            <div class="header">내 일기 목록</div>
-            <div class="diary-list">
+            <div class="header">일기 상세 보기</div>
+            <div class="diary-detail">
                 <%
-                    // Controller에서 전달된 diaries 속성 가져오기
-                    List<Diary> diaryList = (List<Diary>) request.getAttribute("diaries");
-                    if (diaryList != null && !diaryList.isEmpty()) {
-                        for (Diary diary : diaryList) {
+                    // Controller에서 전달된 diary 속성 가져오기
+                    Diary diary = (Diary) request.getAttribute("diary");
+                    if (diary != null) {
                 %>
-                <div class="diary-item">
-                    <a href="Diary?action=view&id=<%= diary.getAid() %>" class="diary-title"><%= diary.getTitle() %></a>
-                    <div class="diary-date"><%= diary.getDate() %></div>
-                </div>
+                <div class="diary-title"><%= diary.getTitle() %></div>
+                <div class="diary-date"><%= diary.getDate() %></div>
+                <div class="diary-emotion">감정: <%= diary.getEmotion() %></div>
+                <div class="diary-content"><%= diary.getContent() %></div>
                 <%
-                        }
                     } else {
                 %>
-                <div>일기가 없습니다.</div>
+                <div>해당 일기를 찾을 수 없습니다.</div>
                 <%
                     }
                 %>
@@ -135,7 +120,6 @@
                 <li>데이터 시각화</li>
                 <li>설정</li>
             </ul>
-            <div class="add-button">+</div>
         </div>
     </div>
 </body>

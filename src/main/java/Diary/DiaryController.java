@@ -90,7 +90,7 @@ public class DiaryController extends HttpServlet {
         int recordId = Integer.parseInt(request.getParameter("id")); // "id"를 받아서 처리
         Diary diary = dao.getDiaryById(recordId);
         request.setAttribute("diary", diary);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Diary/diaryPage.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Diary/viewDiaryPage.jsp");
         dispatcher.forward(request, response);
     }
 
