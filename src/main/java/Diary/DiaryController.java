@@ -108,10 +108,8 @@ public class DiaryController extends HttpServlet {
     // View a single diary entry
     private void viewDiary(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int recordId = Integer.parseInt(request.getParameter("id")); // "id"를 받아서 처리
-        System.out.println("dd : "  + recordId);
         Diary diary = dao.getDiaryById(recordId);
         request.setAttribute("diary", diary);
-        System.out.println("dd : "  + diary);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Diary/viewDiaryPage.jsp");
         dispatcher.forward(request, response);
     }
