@@ -36,7 +36,7 @@
             text-align: center;
             padding: 10px;
             font-size: 20px;
-            color: #5c5c5c;
+            color: black;
             border-radius: 10px;
             margin-bottom: 20px;
             font-weight: bold;
@@ -47,13 +47,14 @@
             grid-template-columns: repeat(7, 1fr);
             grid-gap: 5px;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .calendar .day {
-            padding: 10px;
+            padding: 18px;
             background-color: #fff;
             border-radius: 5px;
             cursor: pointer;
+            color: black;
         }
         .calendar .day:hover {
             background-color: #ffd27d;
@@ -61,6 +62,8 @@
         .calendar .day-name {
             font-weight: bold;
             background-color: #f8d66b;
+            color: black;
+            margin-bottom: 8px;
         }
         .form-container {
             background-color: #f8d66b;
