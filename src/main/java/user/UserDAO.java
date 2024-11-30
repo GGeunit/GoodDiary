@@ -83,4 +83,24 @@ public class UserDAO {
  		}
  	}
 
+ 	// 로그인 메서드
+ 	public User login(String name, String password) throws SQLException {
+ 		Connection conn = open();
+ 		String sql = "SELECT * FROM user WHERE user_name = ? AND password = ?";
+ 		PreparedStatement pstmt = conn.prepareStatement(sql);
+ 		
+ 		try(conn; pstmt) {
+ 			pstmt.setString(1, name);
+ 			pstmt.setString(2, password);
+ 			
+ 			ResultSet rs = pstmt.executeQuery();
+ 			if(rs.next()) {
+ 				User user = new User();
+ 				user.setUserId(rs.getInt("id"));
+ 				user.setUsername(rs.getString("user_name"));
+ 				return user;
+ 			}
+ 		}
+		return null;
+ 	}
 }

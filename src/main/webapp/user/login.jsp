@@ -94,9 +94,12 @@
     </style>
     <script>
     	window.onload = function() {
-    		const message = '<%= request.getAttribute("message") != null ? request.getAttribute("message"): ""%>';
-    		if(message) {
-    			alert(message);
+    		const params = new URLSearchParams(window.location.search);
+    		const error = params.get("error");
+    		if(error === 'invalidCredentials') {
+    			alert('로그인 실패: 이름 또는 비밀번호가 올바르지 않습니다.');
+    		} else if(error === 'serverError') {
+    			alert('서버 오류가 발생했습니다. 나중에 다시 시도해주세요.');
     		}
     	}
     </script>
@@ -107,7 +110,7 @@
             <h1><img src="../images/goodDiary.png" alt="Logo"> Good.Diary</h1>
             <p>당신의 감정이 이야기가 됩니다.<br>오늘의 일기를 작성해 보세요.</p>
             <p>환영합니다! 계정에 로그인하세요.</p>
-            <form action="/GoodDiary/signup?action=addUser" method="post">
+            <form action="/GoodDiary/login" method="post">
                 <input type="text" name="name" placeholder="User name" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <div class="checkbox-container">

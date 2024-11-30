@@ -26,11 +26,11 @@ public class SignupController extends HttpServlet {
 				} catch (SQLException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					response.sendRedirect("signup.jsp?error=databaseError");
+					response.sendRedirect("/GoodDiary/user/signup.jsp?error=databaseError");
 				}
 					break;
 				default:
-					response.sendRedirect("signup.jsp?error=invalidAction");
+					response.sendRedirect("/GoodDiary/user/signup.jsp?error=invalidAction");
 			}
 		}
 		else {
@@ -50,7 +50,6 @@ public class SignupController extends HttpServlet {
 		UserDAO userDAO = new UserDAO();
 		userDAO.signup(user);
 		
-		request.setAttribute("message", "회원가입이 완료되었습니다.");
-		request.getRequestDispatcher("/GoodDiary/user/login.jsp").forward(request, response);
+		response.sendRedirect("/GoodDiary/user/login.jsp?result=success");
 	}
 }
