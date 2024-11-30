@@ -29,7 +29,7 @@ public class DiaryDAO {
 		Connection conn = open();
 		List<Diary> newsList = new ArrayList<>();
 	
-		String sql = "select aid, title, DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') as cdate from news";
+		String sql = "select aid, title, DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') as cdate from Diary";
 
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
@@ -47,10 +47,10 @@ public class DiaryDAO {
 	}
 	
 	// 일기 한 개를 클릭했을 때 세부 내용을 보여주는 메서드
-	public Diary getNews(int aid) throws SQLException {
+	public Diary getDiary(int aid) throws SQLException {
 		Connection conn = open();
 		Diary n = new Diary();
-		String sql = "select aid, title, img, DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') as cdate, content from news where aid=?";
+		String sql = "select aid, title, img, DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') as cdate, content from Diary where aid=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, aid);//1은 ?의 위치 / 위치 정보는 1부터 시작
 		ResultSet rs = pstmt.executeQuery();
@@ -69,9 +69,9 @@ public class DiaryDAO {
 
 	
 	// 일기 추가 메서드
-	public void addNews(Diary n) throws Exception {
+	public void addDiary(Diary n) throws Exception {
 		Connection conn = open();
-		String sql = "insert into news(title,img,date,content) values(?,?,CURRENT_TIMESTAMP(),?)";
+		String sql = "insert into Diary(title,img,date,content) values(?,?,CURRENT_TIMESTAMP(),?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		
 		try(conn; pstmt) {//try 블록이 종료 될때 conn과 pstmt는 자동으로 닫히는 리소스로 간주
@@ -83,14 +83,14 @@ public class DiaryDAO {
 	}
 	
 	// 일기 삭제 메서드
-	public void delNews(int aid) throws SQLException {
+	public void delDiary(int aid) throws SQLException {
 		Connection conn = open();
-		String sql = "delete from news where aid=?";
+		String sql = "delete from Diary where aid=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		
 		try(conn; pstmt) {
 			pstmt.setInt(1, aid);
-			// 삭제된 뉴스 기사가 없을 경우
+			// 삭제된 일기가 없을 경우
 			if(pstmt.executeUpdate() == 0) {
 				throw new SQLException("DB에러");
 			}
@@ -98,9 +98,9 @@ public class DiaryDAO {
 	}
 	
 	// 일기 수정 메서드
-	public void editNews(Diary n) throws Exception {
+	public void editDiary(Diary n) throws Exception {
 		Connection conn = open();
-		String sql = "UPDATE news SET title = ?, img = ?, date = CURRENT_TIMESTAMP(), content = ? WHERE aid = ?";
+		String sql = "UPDATE Diary SET title = ?, img = ?, date = CURRENT_TIMESTAMP(), content = ? WHERE aid = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		
 		try(conn; pstmt) {
