@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -126,7 +127,7 @@
             <div class="header">오늘 하루 나의 감정을 적어보아요</div>
             <div class="form-container">
                 <form action="/GoodDiary/Diary?action=add" method="post">
-                	<input type="hidden" name="user_id" value="6">
+                	<input type="hidden" name="user_id" value="${user.userId}">
                     <div class="form-group">
                         <input type="text" name="title" placeholder="제목">
                         <input type="date" name="date">
