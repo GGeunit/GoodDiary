@@ -114,7 +114,7 @@
                         for (Diary diary : diaryList) {
                 %>
                 <div class="diary-item">
-                    <a href="Diary?action=view&id=<%= diary.getAid() %>" class="diary-title"><%= diary.getTitle() %></a>
+                    <a href="/GoodDiary/Diary?action=view&id=<%= diary.getRecordId() %>" class="diary-title"><%= diary.getTitle() %></a>
                     <div class="diary-date"><%= diary.getDate() %></div>
                 </div>
                 <%
