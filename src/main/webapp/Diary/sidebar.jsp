@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <div class="sidebar">
-	
-	<div class="toplogo"><img src="../images/goodDiary.img"></div>
-
     <ul class="menu">
         <!-- 각 메뉴 항목에 하이퍼링크 추가 -->
         <li>
@@ -22,9 +19,6 @@
 </div>
 
 <style>
-	.toplogo {
-		margin: 0 auto;
-	}
 
     .menu {
         list-style: none;
