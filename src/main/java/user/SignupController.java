@@ -33,6 +33,7 @@ public class SignupController extends HttpServlet {
 					response.sendRedirect("signup.jsp?error=invalidAction");
 			}
 		}
+		
 		else {
 			response.sendRedirect("signup.jsp?error=missingAction");
 		}
