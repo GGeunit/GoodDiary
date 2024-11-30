@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<body>asd123123
 <body>asd1231233
 asdfasdfsadfsdfs
 asdfasdfasdfsadf
