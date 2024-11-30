@@ -133,7 +133,8 @@
         <div class="main">
             <div class="header">오늘 하루 나의 감정을 적어보아요</div>
             <div class="form-container">
-                <form action="emotionSave.jsp" method="post">
+                <form action="/GoodDiary/Diary?action=add" method="post">
+                	<input type="hidden" name="user_id" value="5">
                     <div class="form-group">
                         <input type="text" name="title" placeholder="제목">
                         <input type="date" name="date">
