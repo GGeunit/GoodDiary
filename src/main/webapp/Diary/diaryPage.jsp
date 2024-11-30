@@ -15,10 +15,12 @@
             padding: 0;
             background-color: #fbecee;
         }
+
         .container {
             display: flex;
             height: 100vh;
         }
+
         .sidebar {
             width: 20%;
             background-color: #f8d66b;
@@ -27,54 +29,89 @@
             flex-direction: column;
             justify-content: space-between;
         }
+
         .menu {
             list-style: none;
             padding: 0;
+            margin: 0;
+            text-align: center;
+            font-weight: bold;
         }
-        .menu li {
-            margin-bottom: 20px;
+
+        .btn {
+            display: inline-block;
+            text-align: center;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            box-sizing: border-box;
+            width: 180px;
+            background-color: orange;
+            color: black;
             font-size: 16px;
-            color: #5c5c5c;
-            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
         }
-        .menu li:last-child {
-            margin-bottom: 0;
+
+        .btn:hover {
+            background-color: lightcoral;
+            color: black;
+            transform: scale(1.05);
+            font-size: 17px;
         }
+
         .add-button {
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #ff7070;
+            background-color: orange;
             color: white;
             border-radius: 50%;
             width: 50px;
             height: 50px;
-            cursor: pointer;
             font-size: 30px;
+            margin: 20px auto 0;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
+
+        .add-button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .add-button:hover {
+            background-color: #ff5050;
+            transform: scale(1.1);
+        }
+
         .main {
             width: 80%;
             padding: 20px;
         }
+
         .header {
             background-color: #f8d66b;
             text-align: center;
             padding: 10px;
             font-size: 20px;
-            color: #5c5c5c;
+            color: black;
+            font-weight: bold;
             border-radius: 10px;
             margin-bottom: 20px;
         }
+
         .form-container {
             background-color: #f8d66b;
             border-radius: 10px;
             padding: 20px;
         }
+
         .form-group {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
         }
+
         .form-group input {
             flex: 1;
             margin-right: 10px;
@@ -83,9 +120,11 @@
             border: none;
             border-radius: 5px;
         }
+
         .form-group input:last-child {
             margin-right: 0;
         }
+
         .textarea {
             width: 100%;
             height: 150px;
@@ -95,30 +134,39 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
+
         .button-group {
             display: flex;
             justify-content: space-between;
         }
+
         .button {
             padding: 10px 20px;
             font-size: 16px;
-            color: #5c5c5c;
-            background-color: white;
+            color: black;
+            font-weight: bold;
+            background-color: orange;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
+
         .button:hover {
-            background-color: #ffd27d;
+            background-color: lightcoral;
+            color: black;
+            transform: scale(1.05);
         }
+
         .emoji {
-        font-size: 24px;
-        transition: transform 0.3s, color 0.3s;
-    	}
-	    .emoji:hover {
-    	    transform: scale(1.2);
-        	color: orange;
-    	}
+            font-size: 24px;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .emoji:hover {
+            transform: scale(1.2);
+            color: orange;
+        }
     </style>
 </head>
 <body>
@@ -127,24 +175,24 @@
             <div class="header">오늘 하루 나의 감정을 적어보아요</div>
             <div class="form-container">
                 <form action="/GoodDiary/Diary?action=add" method="post">
-                	<input type="hidden" name="user_id" value="${user.userId}">
+                    <input type="hidden" name="user_id" value="${user.userId}">
                     <div class="form-group">
                         <input type="text" name="title" placeholder="제목">
                         <input type="date" name="date">
-        				<div style="display: flex; justify-content: space-between; margin-top: 10px;">
-    						<label style="display: flex; align-items: center; margin-right: 10px; cursor: pointer;">
-        						<input type="radio" name="emotion" value="기쁨" required style="margin-right: 5px;">
-        						<span class="emoji">😊</span>
-    						</label>
-    						<label style="display: flex; align-items: center; margin-right: 10px; cursor: pointer;">
-        						<input type="radio" name="emotion" value="슬픔" required style="margin-right: 5px;">
-        						<span class="emoji">😭</span>
-    						</label>
-    						<label style="display: flex; align-items: center; cursor: pointer;">
-        						<input type="radio" name="emotion" value="화남" required style="margin-right: 5px;">
-        						<span class="emoji">😠</span>
-    						</label>
-						</div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <label style="display: flex; align-items: center; margin-right: 10px; cursor: pointer;">
+                                <input type="radio" name="emotion" value="기쁨" required style="margin-right: 5px;">
+                                <span class="emoji">😊</span>
+                            </label>
+                            <label style="display: flex; align-items: center; margin-right: 10px; cursor: pointer;">
+                                <input type="radio" name="emotion" value="슬픔" required style="margin-right: 5px;">
+                                <span class="emoji">😭</span>
+                            </label>
+                            <label style="display: flex; align-items: center; cursor: pointer;">
+                                <input type="radio" name="emotion" value="화남" required style="margin-right: 5px;">
+                                <span class="emoji">😠</span>
+                            </label>
+                        </div>
                     </div>
                     <textarea class="textarea" name="content" placeholder="감정 기록"></textarea>
                     <div class="button-group">
@@ -154,7 +202,7 @@
                 </form>
             </div>
         </div>
-		<jsp:include page="sidebar.jsp" />
+        <jsp:include page="sidebar.jsp" />
     </div>
 </body>
 </html>
