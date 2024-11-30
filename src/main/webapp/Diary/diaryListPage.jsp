@@ -105,7 +105,7 @@
 <body>
     <div class="container">
         <div class="main">
-            <div class="header">내 일기 목록</div>
+            <div class="header"><b>내 일기 목록</b></div>
             <div class="diary-list">
                 <%
                     // Controller에서 전달된 diaries 속성 가져오기
