@@ -59,7 +59,6 @@ public class DiaryDAO {
 		try(conn; pstmt; rs) {
 			n.setAid(rs.getInt("aid"));
 			n.setTitle(rs.getString("title"));
-			n.setImg(rs.getString("img"));
 			n.setDate(rs.getString("cdate"));
 			n.setContent(rs.getString("content"));
 			pstmt.executeQuery();
@@ -76,7 +75,6 @@ public class DiaryDAO {
 		
 		try(conn; pstmt) {//try 블록이 종료 될때 conn과 pstmt는 자동으로 닫히는 리소스로 간주
 			pstmt.setString(1, n.getTitle());
-			pstmt.setString(2, n.getImg());
 			pstmt.setString(3, n.getContent());
 			pstmt.executeUpdate();
 		}
@@ -105,11 +103,15 @@ public class DiaryDAO {
 		
 		try(conn; pstmt) {
 			pstmt.setString(1, n.getTitle());
-			pstmt.setString(2, n.getImg());
 			pstmt.setString(3, n.getContent());
 			pstmt.setInt(4, n.getAid());
 			pstmt.executeUpdate();
 		}
+	}
+	
+	// 회원가입 메서드
+	public void signup(Diary n) {
+		
 	}
 	
 }
