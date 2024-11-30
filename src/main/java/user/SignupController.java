@@ -21,7 +21,13 @@ public class SignupController extends HttpServlet {
 		if(action != null) {
 			switch(action) {
 				case "addUser":
+				try {
 					addUser(request, response);
+				} catch (SQLException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					response.sendRedirect("signup.jsp?error=databaseError");
+				}
 					break;
 				default:
 					response.sendRedirect("signup.jsp?error=invalidAction");
@@ -33,9 +39,18 @@ public class SignupController extends HttpServlet {
 		
 	}
 	
-	public String addUser(HttpServletRequest request, HttpServletResponse response) {
-		User user = new User();
+	public void addUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+		String username = request.getParameter("name");
+		String password = request.getParameter("password");
 		
-		return null;
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		
+		UserDAO userDAO = new UserDAO();
+		userDAO.signup(user);
+		
+		request.setAttribute("message", "회원가입이 완료되었습니다.");
+		request.getRequestDispatcher("/GoodDiary/user/login.jsp").forward(request, response);
 	}
 }

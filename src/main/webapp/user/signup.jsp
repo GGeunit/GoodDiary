@@ -106,7 +106,7 @@
         <h1>Good.Diary</h1>
         <p>Welcome! <br> Join The Community</p>
 
-        <form action="signup?action=addUser" method="post">
+        <form action="/GoodDiary/signup?action=addUser" method="post">
             <div class="form-group">
                 <label for="name">User name</label>
                 <input type="text" id="name" name="name" placeholder="Enter your user name" required>
