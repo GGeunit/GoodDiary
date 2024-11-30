@@ -36,7 +36,8 @@ public class DiaryDAO {
     // READ ALL: 모든 다이어리 조회
     public List<Diary> getAllDiaries() throws SQLException {
         List<Diary> diaries = new ArrayList<>();
-        String query = "SELECT * FROM emotionRecord";
+        String query = 
+        		"SELECT * FROM emotionRecord order by date asc";
         try (Connection conn = open(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Diary diary = new Diary();
