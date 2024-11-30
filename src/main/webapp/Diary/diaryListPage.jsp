@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*, Diary.Diary" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -108,24 +109,24 @@
         <div class="main">
             <div class="header">내 일기 목록</div>
             <div class="diary-list">
-                <%
-                    // Controller에서 전달된 diaries 속성 가져오기
-                    List<Diary> diaryList = (List<Diary>) request.getAttribute("diaries");
-                    if (diaryList != null && !diaryList.isEmpty()) {
-                        for (Diary diary : diaryList) {
-                %>
-                <div class="diary-item">
-                    <a href="/GoodDiary/Diary?action=view&id=<%= diary.getRecordId() %>" class="diary-title"><%= diary.getTitle() %></a>
-                    <div class="diary-date"><%= diary.getDate() %></div>
-                </div>
-                <%
-                        }
-                    } else {
-                %>
-                <div>일기가 없습니다.</div>
-                <%
-                    }
-                %>
+  				<c:if test="${not empty diaries}">
+			    <c:forEach var="diary" items="${diaries}">
+			        <div class="diary-item">
+			            <a href="/GoodDiary/Diary?action=view&id=${diary.recordId}" class="diary-title">${diary.title}</a>
+			            <div class="diary-date">${diary.date}</div>
+    			        <c:choose>
+			                <c:when test="${diary.emotion == '기쁨'}">기쁨일때이모티콘</c:when>
+			                <c:when test="${diary.emotion == '슬픔'}">슬픔일때이모티콘</c:when>
+			                <c:when test="${diary.emotion == '화남'}">화남일때이모티콘</c:when>
+			                <c:otherwise>🤔</c:otherwise>
+			            </c:choose>
+			        </div>
+			    </c:forEach>
+				</c:if>
+				<c:if test="${empty diaries}">
+				    <div>일기가 없습니다.</div>
+				</c:if>
+			  				
             </div>
         </div>
 		<jsp:include page="sidebar.jsp" />
