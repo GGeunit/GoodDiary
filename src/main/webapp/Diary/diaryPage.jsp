@@ -202,7 +202,11 @@
                 </form>
             </div>
         </div>
+<<<<<<< HEAD
         <jsp:include page="sidebar.jsp" />
+=======
+
+>>>>>>> branch 'kdk' of https://github.com/GGeunit/GoodDiary.git
     </div>
 </body>
 </html>
