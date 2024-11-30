@@ -112,15 +112,8 @@
                 %>
             </div>
         </div>
-        <div class="sidebar">
-            <ul class="menu">
-                <li>일기 작성</li>
-                <li>캘린더</li>
-                <li>감정 기록</li>
-                <li>데이터 시각화</li>
-                <li>설정</li>
-            </ul>
-        </div>
+
+		<jsp:include page="sidebar.jsp" />
     </div>
 </body>
 </html>
