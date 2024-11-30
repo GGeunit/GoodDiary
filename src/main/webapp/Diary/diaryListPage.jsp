@@ -80,28 +80,37 @@
             padding: 20px;
         }
 
-        .diary-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #ffefd5;
-            border-radius: 5px;
-        }
+		.diary-item {
+		    display: flex; /* 플렉스 박스 사용 */
+		    justify-content: space-between; /* 요소 간 간격 균등 분배 */
+		    align-items: center; /* 세로 중앙 정렬 */
+		    padding: 10px;
+		    margin-bottom: 10px;
+		    background-color: #ffefd5;
+		    border-radius: 5px;
+		}
 
         .diary-item:hover {
             background-color: #ffd27d;
         }
 
-        .diary-title {
-            font-size: 16px;
-            color: black;
-        }
-
-        .diary-date {
-            font-size: 14px;
-            color: #888;
-        }
+		.diary-title {
+		    font-size: 16px;
+		    color: black;
+		    flex: 1; /* 제목이 가능한 공간을 차지하도록 설정 */
+		    text-decoration: none;
+		}
+		
+		.diary-date {
+		    font-size: 14px;
+		    color: #888;
+		    margin-right: 10px; /* 날짜와 이모지 간 간격 추가 */
+		}
+		
+		.emoji {
+		    font-size: 16px;
+		    margin-left: 10px; /* 이모지가 날짜와 간격을 유지하도록 설정 */
+		}
     </style>
 </head>
 <body>
