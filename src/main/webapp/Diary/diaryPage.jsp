@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -130,16 +131,18 @@
         <div class="main">
             <div class="header">오늘 하루 나의 감정을 적어보아요</div>
             <div class="form-container">
-                <div class="form-group">
-                    <input type="text" placeholder="제목">
-                    <input type="date">
-                    <input type="text" placeholder="감정">
-                </div>
-                <textarea class="textarea" placeholder="감정 기록"></textarea>
-                <div class="button-group">
-                    <button class="button">취소</button>
-                    <button class="button">저장</button>
-                </div>
+                <form action="emotionSave.jsp" method="post">
+                    <div class="form-group">
+                        <input type="text" name="title" placeholder="제목">
+                        <input type="date" name="date">
+                        <input type="text" name="emotion" placeholder="감정">
+                    </div>
+                    <textarea class="textarea" name="content" placeholder="감정 기록"></textarea>
+                    <div class="button-group">
+                        <button type="reset" class="button">취소</button>
+                        <button type="submit" class="button">저장</button>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="sidebar">
