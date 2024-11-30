@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
-    <link rel="stylesheet" href="/jaewan_free/resources/common.css" type="text/css">
+    <link rel="stylesheet" href="/adsfasdf.css" type="text/css">
 </head>
 <body>
     <header>
@@ -13,7 +13,7 @@
     </header>
     <main>
         <!-- 로그인 폼 -->
-        <form action="LoginServlet" method="post">
+        <form action="/GoodDiary/login" method="post">
             <!-- 에러 메시지 표시 -->
             <%
                 String errorMessage = (String) request.getAttribute("errorMessage");
