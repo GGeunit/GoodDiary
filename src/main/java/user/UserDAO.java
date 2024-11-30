@@ -96,7 +96,7 @@ public class UserDAO {
  			ResultSet rs = pstmt.executeQuery();
  			if(rs.next()) {
  				User user = new User();
- 				user.setUserId(rs.getInt("id"));
+ 				user.setUserId(rs.getInt("user_id"));
  				user.setUsername(rs.getString("user_name"));
  				return user;
  			}
