@@ -67,9 +67,10 @@
             text-align: center;
             padding: 10px;
             font-size: 20px;
-            color: #5c5c5c;
+            color: black;
             border-radius: 10px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
 
         .diary-list {
@@ -93,7 +94,7 @@
 
         .diary-title {
             font-size: 16px;
-            color: #5c5c5c;
+            color: black;
         }
 
         .diary-date {
