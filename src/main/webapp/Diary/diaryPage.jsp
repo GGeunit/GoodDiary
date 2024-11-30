@@ -154,7 +154,7 @@
                 </form>
             </div>
         </div>
-
+		<jsp:include page="sidebar.jsp" />
     </div>
 </body>
 </html>

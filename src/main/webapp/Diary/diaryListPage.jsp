@@ -67,9 +67,10 @@
             text-align: center;
             padding: 10px;
             font-size: 20px;
-            color: #5c5c5c;
+            color: black;
             border-radius: 10px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
 
         .diary-list {
@@ -93,7 +94,7 @@
 
         .diary-title {
             font-size: 16px;
-            color: #5c5c5c;
+            color: black;
         }
 
         .diary-date {
@@ -105,7 +106,7 @@
 <body>
     <div class="container">
         <div class="main">
-            <div class="header"><b>내 일기 목록</b></div>
+            <div class="header">내 일기 목록</div>
             <div class="diary-list">
                 <%
                     // Controller에서 전달된 diaries 속성 가져오기
@@ -114,7 +115,7 @@
                         for (Diary diary : diaryList) {
                 %>
                 <div class="diary-item">
-                    <a href="Diary?action=view&id=<%= diary.getAid() %>" class="diary-title"><%= diary.getTitle() %></a>
+                    <a href="/GoodDiary/Diary?action=view&id=<%= diary.getRecordId() %>" class="diary-title"><%= diary.getTitle() %></a>
                     <div class="diary-date"><%= diary.getDate() %></div>
                 </div>
                 <%
@@ -127,21 +128,6 @@
                 %>
             </div>
         </div>
-
-		<div class="sidebar">
-		    <ul class="menu">
-		        <!-- 각 메뉴 항목에 하이퍼링크 추가 -->
-		        <li><a href="/GoodDiary/Diary/diaryPage.jsp" style="text-decoration: none; color: inherit;">일기 작성</a></li>
-		        <li><a href="calendar.jsp" style="text-decoration: none; color: inherit;">캘린더</a></li>
-		        <li><a href="emotionLog.jsp" style="text-decoration: none; color: inherit;">감정 기록</a></li>
-		        <li><a href="dataVisualization.jsp" style="text-decoration: none; color: inherit;">데이터 시각화</a></li>
-		        <li><a href="settings.jsp" style="text-decoration: none; color: inherit;">설정</a></li>
-		    </ul>
-		    <!-- 플러스 버튼도 페이지 이동 -->
-		    <div class="add-button">
-		        <a href="/GoodDiary/Diary/diaryPage.jsp" style="text-decoration: none; color: white;">+</a>
-		    </div>
-		</div>
-
+		<jsp:include page="sidebar.jsp" />
 </body>
 </html>
