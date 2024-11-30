@@ -54,17 +54,23 @@ public class DiaryDAO {
 
     // READ ONE: 특정 다이어리 조회
     public Diary getDiaryById(int aid) throws SQLException {
+    	System.out.println("Diary fetched: " + aid);
         String query = "SELECT * FROM emotionRecord WHERE record_id = ?";
         try (Connection conn = open(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+        	System.out.println("Executing query: " + pstmt);
             pstmt.setInt(1, aid);
+            System.out.println("Executing query: " + pstmt);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 Diary diary = new Diary();
-                diary.setAid(rs.getInt("record_id"));
+                diary.setRecordId(rs.getInt("record_id"));
+                diary.setAid(rs.getInt("user_id"));
                 diary.setTitle(rs.getString("title"));
                 diary.setDate(rs.getDate("date").toString());
                 diary.setEmotion(rs.getString("emotion"));
                 diary.setContent(rs.getString("content"));
+                System.out.println("Diary fetched: " + diary.getTitle());
+                System.out.println("Diary fetched: " + diary.getContent());
                 return diary;
             }
         }
@@ -104,6 +110,7 @@ public class DiaryDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Diary diary = new Diary();
+                    diary.setRecordId(rs.getInt("record_id"));
                     diary.setAid(rs.getInt("user_id"));
                     diary.setTitle(rs.getString("title"));
                     diary.setDate(rs.getString("date"));
