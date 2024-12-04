@@ -38,7 +38,6 @@ public class DiaryDAO {
         List<Diary> diaries = new ArrayList<>();
         String query = "SELECT * FROM emotionRecord order by date desc";
         try (Connection conn = open(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
-        	System.out.println("Fetching all diaries...");
             while (rs.next()) {
                 Diary diary = new Diary();
                 diary.setAid(rs.getInt("record_id"));
@@ -54,12 +53,9 @@ public class DiaryDAO {
 
     // READ ONE: 특정 다이어리 조회
     public Diary getDiaryById(int aid) throws SQLException {
-    	System.out.println("Diary fetched: " + aid);
         String query = "SELECT * FROM emotionRecord WHERE record_id = ?";
         try (Connection conn = open(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-        	System.out.println("Executing query: " + pstmt);
             pstmt.setInt(1, aid);
-            System.out.println("Executing query: " + pstmt);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 Diary diary = new Diary();
@@ -69,8 +65,6 @@ public class DiaryDAO {
                 diary.setDate(rs.getDate("date").toString());
                 diary.setEmotion(rs.getString("emotion"));
                 diary.setContent(rs.getString("content"));
-                System.out.println("Diary fetched: " + diary.getTitle());
-                System.out.println("Diary fetched: " + diary.getContent());
                 return diary;
             }
         }
