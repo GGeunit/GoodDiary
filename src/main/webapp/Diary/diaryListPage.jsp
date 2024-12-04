@@ -132,6 +132,13 @@
                             <c:otherwise><span class="emoji">🤔</span></c:otherwise>
 			            </c:choose>
 			            (${diary.emotionScore })
+			            
+                         <!-- 삭제 버튼 -->
+		                <form action="/GoodDiary/Diary" method="get" class="delete-form">
+		                    <input type="hidden" name="action" value="delete">
+		                    <input type="hidden" name="id" value="${diary.recordId}">
+		                    <button type="submit" class="delete-button">삭제</button>
+		                </form>
 			        </div>
 			    </c:forEach>
 				</c:if>
