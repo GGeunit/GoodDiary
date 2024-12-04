@@ -22,13 +22,14 @@ public class DiaryDAO {
 
     // CREATE: 새로운 다이어리 추가
     public void addDiary(Diary diary) throws SQLException {
-        String query = "INSERT INTO emotionRecord (user_id, title, date, emotion, content) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO emotionRecord (user_id, title, date, emotion, content, emotion_score) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = open(); PreparedStatement pstmt = conn.prepareStatement(query)) {
         	pstmt.setInt(1, diary.getAid());
             pstmt.setString(2, diary.getTitle());
             pstmt.setString(3, diary.getDate());
             pstmt.setString(4, diary.getEmotion());
             pstmt.setString(5, diary.getContent());
+            pstmt.setDouble(6, diary.getEmotionScore());
             pstmt.executeUpdate();
         }
     }
@@ -110,6 +111,7 @@ public class DiaryDAO {
                     diary.setDate(rs.getString("date"));
                     diary.setEmotion(rs.getString("emotion"));
                     diary.setContent(rs.getString("content"));
+                    diary.setEmotionScore(rs.getDouble("emotion_score"));
                     diaries.add(diary);
                 }
             }

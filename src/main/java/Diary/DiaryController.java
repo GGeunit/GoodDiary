@@ -68,9 +68,6 @@ public class DiaryController extends HttpServlet {
                 case "add":
                     addDiary(request, response);
                     break;
-                case "edit":
-                    editDiary(request, response);
-                    break;
                 default:
                     response.sendRedirect("Diary?action=list");
                     break;
@@ -120,31 +117,19 @@ public class DiaryController extends HttpServlet {
         Diary diary = new Diary();
         diary.setTitle(request.getParameter("title"));
         diary.setDate(request.getParameter("date"));
-        diary.setEmotion(request.getParameter("emotion")); // 감정 필드 추가
         diary.setContent(request.getParameter("content"));
         diary.setAid(Integer.parseInt(request.getParameter("user_id")));
         
         
-        String emotionLevel = diaryService.emotionAnalyze(diary.getContent());
+        double emotionScore = diaryService.emotionAnalyze(diary.getContent());
+        String emotionLevel = mapScoreToEmotion(emotionScore);
+        
+        diary.setEmotion(emotionLevel); // 감정 필드 추가
+        diary.setEmotionScore(emotionScore);
         
         System.out.println("현재 내용 감정 : " + emotionLevel);
         
         dao.addDiary(diary);
-        response.sendRedirect("Diary?action=list");
-    }
-
-    // Edit an existing diary entry
-    private void editDiary(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int recordId = Integer.parseInt(request.getParameter("id"));
-
-        Diary diary = new Diary();
-        diary.setAid(recordId); // VO의 `aid` 필드에 맞춤
-        diary.setTitle(request.getParameter("title"));
-        diary.setDate(request.getParameter("date"));
-        diary.setEmotion(request.getParameter("emotion")); // 감정 필드 추가
-        diary.setContent(request.getParameter("content"));
-
-        dao.updateDiary(diary);
         response.sendRedirect("Diary?action=list");
     }
 
@@ -154,4 +139,25 @@ public class DiaryController extends HttpServlet {
         dao.deleteDiary(recordId);
         response.sendRedirect("Diary?action=list");
     }
+    
+    
+    
+	// 점수를 감정 단계로 매핑
+	private String mapScoreToEmotion(Double score) {
+	    if (score == null) {
+	        return "Unknown";
+	    } else if (score >= 0.6) {
+	        return "Very Positive"; // 매우 긍정적
+	    } else if (score >= 0.2) {
+	        return "Positive"; // 긍정적
+	    } else if (score >= -0.2) {
+	        return "Neutral"; // 중립적
+	    } else if (score >= -0.6) {
+	        return "Negative"; // 부정적
+	    } else {
+	        return "Very Negative"; // 매우 부정적
+	    }
+	}
+	
+	
 }

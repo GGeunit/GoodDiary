@@ -122,13 +122,16 @@
 			    <c:forEach var="diary" items="${diaries}">
 			        <div class="diary-item">
 			            <a href="/GoodDiary/Diary?action=view&id=${diary.recordId}" class="diary-title">${diary.title}</a>
-			            <div class="diary-date">${diary.date}</div>
+						<div class="diary-date">${diary.date}</div>
     			        <c:choose>
-			                <c:when test="${diary.emotion == '기쁨'}"><span class="emoji">😊</span></c:when>
-			                <c:when test="${diary.emotion == '슬픔'}"><span class="emoji">😭</span></c:when>
-			                <c:when test="${diary.emotion == '화남'}"><span class="emoji">😠</span></c:when>
-			                <c:otherwise>🤔</c:otherwise>
+                            <c:when test="${diary.emotion == 'Very Positive'}"><span class="emoji">😁</span></c:when>
+                            <c:when test="${diary.emotion == 'Positive'}"><span class="emoji">😊</span></c:when>
+                            <c:when test="${diary.emotion == 'Neutral'}"><span class="emoji">😐</span></c:when>
+                            <c:when test="${diary.emotion == 'Negative'}"><span class="emoji">😔</span></c:when>
+                            <c:when test="${diary.emotion == 'Very Negative'}"><span class="emoji">😡</span></c:when>
+                            <c:otherwise><span class="emoji">🤔</span></c:otherwise>
 			            </c:choose>
+			            (${diary.emotionScore })
 			        </div>
 			    </c:forEach>
 				</c:if>

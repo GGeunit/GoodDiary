@@ -13,7 +13,7 @@ public class DiaryService {
 	private static final int MAX_TEXT_LENGTH = 200; // 일기 최대 길이 설정
 
 	// 감정 분석 메서드
-	public String emotionAnalyze(String text) throws IOException {
+	public double emotionAnalyze(String text) throws IOException {
 		
 	    // 텍스트 앞뒤 공백 및 개행 문자 제거
 	    text = text.trim();
@@ -56,14 +56,14 @@ public class DiaryService {
 
 	                // 감정 분석 결과 추출
 	                Double score = (Double) responseMap.get("score");
-
-	                // 감정 분석 결과를 5단계로 매핑
-	                String emotionLevel = mapScoreToEmotion(score);
-
-	                // 감정 분석 결과 반환
-	                System.out.println(String.format("Emotion Level: %s (Score: %.2f)", emotionLevel, score));
 	                
-	                return emotionLevel;
+	                // 소수점 1자리로 반올림
+	                score = Math.round(score * 10) / 10.0;
+	                
+	                // 감정 분석 결과 반환
+	                System.out.println(String.format("Emotion Score: %.2f", score));
+	                return score;
+//	                return emotionLevel;
 	            }
 	        } else {
 	            // 에러 응답 처리
@@ -74,23 +74,6 @@ public class DiaryService {
 	        }
 	    } finally {
 	        connection.disconnect(); // 연결 해제
-	    }
-	}
-
-	// 점수를 감정 단계로 매핑
-	private String mapScoreToEmotion(Double score) {
-	    if (score == null) {
-	        return "Unknown";
-	    } else if (score >= 0.75) {
-	        return "Very Positive"; // 매우 긍정적
-	    } else if (score >= 0.5) {
-	        return "Positive"; // 긍정적
-	    } else if (score >= -0.5 && score < 0.5) {
-	        return "Neutral"; // 중립적
-	    } else if (score >= -0.75) {
-	        return "Negative"; // 부정적
-	    } else {
-	        return "Very Negative"; // 매우 부정적
 	    }
 	}
 }

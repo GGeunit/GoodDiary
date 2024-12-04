@@ -7,8 +7,18 @@ public class Diary {
 	private String date;
 	private String emotion;
 	private String content;
-
+	private double emotionScore;
 	
+	
+	
+
+	public double getEmotionScore() {
+		return emotionScore;
+	}
+
+	public void setEmotionScore(double emotionScore) {
+		this.emotionScore = emotionScore;
+	}
 
 	public int getRecordId() {
 		return recordId;
