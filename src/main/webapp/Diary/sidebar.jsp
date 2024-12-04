@@ -13,10 +13,20 @@
         <li><a href="/GoodDiary/Diary" class="btn">일기 목록 📚</a></li>
         <li><a href="/GoodDiary/Diary/calendar.jsp" class="btn">캘린더 🗓️</a></li>
         <li><a href="dataVisualization.jsp" class="btn">데이터 시각화 🔍</a></li>
-        <li><a href="/GoodDiary/user/login.jsp" class="btn">로그인</a></li>
-        <li><a href="/GoodDiary/logout" class="btn">로그아웃</a></li>
+        <li><a href="/GoodDiary/logout" class="btn" onclick="confirmLogout()">로그아웃 🙌</a></li>
     </ul>
 </div>
+
+<script>
+    function confirmLogout() {
+        const userConfirmed = confirm("로그아웃 하시겠습니까?");
+        if (userConfirmed) {
+            // 로그아웃 후 로그인 페이지로 이동
+            window.location.href = "/GoodDiary/user/login.jsp";
+        } 
+        // 취소를 클릭하면 아무 동작도 하지 않음 (현재 페이지에 머무름)
+    }
+</script>
 
 <style>
 
