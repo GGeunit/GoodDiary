@@ -13,10 +13,7 @@
         <li><a href="/GoodDiary/Diary" class="btn">일기 목록 📚</a></li>
         <li><a href="/GoodDiary/Diary/calendar.jsp" class="btn">캘린더 🗓️</a></li>
         <li><a href="dataVisualization.jsp" class="btn">데이터 시각화 🔍</a></li>
-        <li>
-            <a href="#" class="btn" onclick="confirmLogout()">타계정 로그인</a>
-        </li>
-        <li><a href="/GoodDiary/logout" class="btn">로그아웃</a></li>
+        <li><a href="/GoodDiary/logout" class="btn" onclick="confirmLogout()">로그아웃 🙌</a></li>
     </ul>
 </div>
 
