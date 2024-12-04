@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 public class DiaryController extends HttpServlet {
 
     private DiaryDAO dao; // 데이터 접근 객체
+    private DiaryService diaryService = new DiaryService();
     private ServletContext ctx;
 
     public void init(ServletConfig config) throws ServletException {
@@ -122,7 +123,12 @@ public class DiaryController extends HttpServlet {
         diary.setEmotion(request.getParameter("emotion")); // 감정 필드 추가
         diary.setContent(request.getParameter("content"));
         diary.setAid(Integer.parseInt(request.getParameter("user_id")));
-
+        
+        
+        String emotionLevel = diaryService.emotionAnalyze(diary.getContent());
+        
+        System.out.println("현재 내용 감정 : " + emotionLevel);
+        
         dao.addDiary(diary);
         response.sendRedirect("Diary?action=list");
     }
