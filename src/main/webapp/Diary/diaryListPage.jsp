@@ -134,7 +134,7 @@
 			            (${diary.emotionScore })
 			            
                          <!-- 삭제 버튼 -->
-		                <form action="/GoodDiary/Diary" method="get" class="delete-form">
+		                <form action="/GoodDiary/Diary" method="get" class="delete-form" onsubmit="return confirmDelete();">
 		                    <input type="hidden" name="action" value="delete">
 		                    <input type="hidden" name="id" value="${diary.recordId}">
 		                    <button type="submit" class="delete-button">삭제</button>
@@ -149,5 +149,12 @@
             </div>
         </div>
 		<jsp:include page="sidebar.jsp" />
+		
+		<script>
+		    // 삭제 확인 함수
+		    function confirmDelete() {
+		        return confirm("정말로 이 일기를 삭제하시겠습니까?");
+		    }
+		</script>
 </body>
 </html>
