@@ -65,6 +65,14 @@
             color: black;
             margin-bottom: 8px;
         }
+        .calendar .day a {
+        	text-decoration: none;
+        	color: black;
+        	font-weight: bold;
+    	}
+    	.calendar .day a:hover {
+        	color: #ff9800;
+    	}
         .form-container {
             background-color: #f8d66b;
             border-radius: 10px;
@@ -86,21 +94,37 @@
         .form-group input:last-child {
             margin-right: 0;
         }
+        li {
+        	margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="main">
-        	<div class="header">캘린더</div>
+            <div class="header" id="monthHeader">캘린더</div>
             <div class="form-container">
-            	<!-- 캘린더 표시 -->
-            <div class="calendar" id="calendar"></div>
+                <!-- 캘린더 표시 -->
+                <div class="calendar" id="calendar"></div>
             </div>
         </div>
         <jsp:include page="sidebar.jsp" />
     </div>
 
     <script>
+        // 현재 월 텍스트 가져오기
+        function getMonthName(month) {
+            const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+            return monthNames[month];
+        }
+
+        // 날짜를 YYYY-MM-DD 형식으로 변환
+        function formatDate(year, month, day) {
+            const paddedMonth = String(month).padStart(2, '0'); // 1월 -> 01월
+            const paddedDay = String(day).padStart(2, '0');     // 1일 -> 01일
+            return `${year}-${paddedMonth}-${paddedDay}`;
+        }
+
         // 캘린더 동작 구현
         function generateCalendar(month, year) {
             const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
@@ -131,13 +155,22 @@
             for (let day = 1; day <= totalDays; day++) {
                 const dayElement = document.createElement("div");
                 dayElement.classList.add("day");
-                dayElement.textContent = day;
+
+                // 날짜 클릭 시 diaryListPage.jsp로 이동
+                const link = document.createElement("a");
+                const formattedDate = formatDate(year, month + 1, day); // YYYY-MM-DD 형식
+                link.href = "diaryListPage.jsp?date=${formattedDate}";
+                link.textContent = day;
+                dayElement.appendChild(link);
+
                 calendar.appendChild(dayElement);
             }
         }
 
         // 현재 월을 표시하고 캘린더 생성
         const today = new Date();
+        const monthHeader = document.getElementById("monthHeader");
+        monthHeader.textContent = getMonthName(today.getMonth()) + " 캘린더";
         generateCalendar(today.getMonth(), today.getFullYear());
     </script>
 </body>
