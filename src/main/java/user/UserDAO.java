@@ -11,7 +11,7 @@ import Diary.Diary;
 public class UserDAO {
 
     final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-	final String JDBC_URL = "jdbc:mysql://14.51.115.47:3309/GoodDiary";
+	final String JDBC_URL = "jdbc:mysql://appledolphin.xyz:3309/GoodDiary";
 
 	// DB 연결을 가져오는 메서드
 	public Connection open() {

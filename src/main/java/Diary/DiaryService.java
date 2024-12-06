@@ -24,7 +24,7 @@ public class DiaryService {
 	    }
 
 	    // 감정 분석 API URL
-	    String sentimentApiUrl = "http://14.51.115.47:6000/analyze-sentiment";
+	    String sentimentApiUrl = "http://appledolphin.xyz:6000/analyze-sentiment";
 
 	    // 요청 데이터 생성 (JSON 형식)
 	    String jsonInput = String.format("{\"text\": \"%s\"}", text);
