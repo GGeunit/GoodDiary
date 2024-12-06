@@ -177,30 +177,39 @@ public class DiaryController extends HttpServlet {
 	    String startDate = request.getParameter("startDate");
 	    String endDate = request.getParameter("endDate");
 
+	    // 날짜 범위에 따른 다이어리 가져오기
 	    List<Diary> diaries = dao.getDiariesByDateRange(userId, startDate, endDate);
 
+	    // 평균 감정 점수 계산
 	    double totalScore = 0.0;
-	    int count = diaries.size();
-	    for (Diary diary : diaries) {
-	        totalScore += diary.getEmotionScore();
+	    int count = diaries != null ? diaries.size() : 0;
+	    if (diaries != null) {
+	        for (Diary diary : diaries) {
+	            totalScore += diary.getEmotionScore();
+	        }
 	    }
 	    double averageScore = count > 0 ? totalScore / count : 0.0;
 
+	    // 분석 메시지 생성
 	    String analysisMessage = generateAnalysisMessage(averageScore);
 
 	    // JSON 변환
 	    Gson gson = new Gson();
 	    String diariesJson = gson.toJson(diaries);
 
-	    request.setAttribute("diariesJson", diariesJson); // JSON 데이터 전달
+	    // JSP로 데이터 전달
+	    request.setAttribute("diaries", diaries); // JSP에서 다이어리 데이터 사용
+	    request.setAttribute("diariesJson", diariesJson); // 차트용 JSON 데이터
 	    request.setAttribute("averageScore", averageScore);
 	    request.setAttribute("startDate", startDate);
 	    request.setAttribute("endDate", endDate);
 	    request.setAttribute("analysisMessage", analysisMessage);
 
+	    // JSP로 포워드
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/analyze/result.jsp");
 	    dispatcher.forward(request, response);
 	}
+
 	
 	// 감정 점수에 따른 메시지 생성
 	private String generateAnalysisMessage(double averageScore) {
