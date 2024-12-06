@@ -131,10 +131,12 @@ public class DiaryDAO {
 
         try (Connection conn = open();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
+        	System.out.println(query);
             pstmt.setInt(1, userId);
             pstmt.setString(2, startDate);
             pstmt.setString(3, endDate);
-
+            System.out.println(query);
+            
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Diary diary = new Diary();

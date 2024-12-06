@@ -39,15 +39,31 @@
             color: #FF5722;
             font-style: italic;
         }
+        .analysis-message {
+            background: #e8f4e8;
+            border: 1px solid #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            color: #155724;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <h1>Diary Analysis Result</h1>
 
-    <p>Period: <strong>${startDate}</strong> to <strong>${endDate}</strong></p>
-    <p class="average-score">Average Emotion Score: ${averageScore}</p>
+    <p>기간: <strong>${startDate}</strong>부터 <strong>${endDate}</strong>까지</p>
+    <p class="average-score">평균 감정 점수: ${averageScore}</p>
 
-    <h2>Diaries in Selected Period</h2>
+    <!-- 분석 메시지 섹션 -->
+    <c:if test="${not empty analysisMessage}">
+        <div class="analysis-message">
+            <h2>분석 결과</h2>
+            <p>${analysisMessage}</p>
+        </div>
+    </c:if>
+
+    <h2>선택된 기간 동안의 다이어리</h2>
     <c:choose>
         <c:when test="${not empty diaries}">
             <ul>
@@ -55,15 +71,15 @@
                     <li>
                         <span class="diary-title">${diary.title}</span> 
                         (<span class="diary-date">${diary.date}</span>)<br>
-                        <strong>Emotion:</strong> ${diary.emotion} 
-                        (Score: ${diary.emotionScore})<br>
+                        <strong>감정:</strong> ${diary.emotion} 
+                        (점수: ${diary.emotionScore})<br>
                         <p>${diary.content}</p>
                     </li>
                 </c:forEach>
             </ul>
         </c:when>
         <c:otherwise>
-            <p class="no-diaries">No diaries found for the selected period.</p>
+            <p class="no-diaries">선택된 기간 동안의 다이어리가 없습니다.</p>
         </c:otherwise>
     </c:choose>
 </body>

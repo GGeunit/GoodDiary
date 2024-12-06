@@ -175,8 +175,8 @@ public class DiaryController extends HttpServlet {
 
         // 현재 사용자의 userId로 다이어리 목록 가져오기
         int userId = currentUser.getUserId();
-	    String startDate = request.getParameter("start_date"); // 요청에서 시작 날짜 가져오기
-	    String endDate = request.getParameter("end_date"); // 요청에서 종료 날짜 가져오기
+	    String startDate = request.getParameter("startDate"); // 요청에서 시작 날짜 가져오기
+	    String endDate = request.getParameter("endDate"); // 요청에서 종료 날짜 가져오기
 
 	    // 지정된 기간의 다이어리 가져오기
 	    List<Diary> diaries = dao.getDiariesByDateRange(userId, startDate, endDate);
@@ -188,17 +188,40 @@ public class DiaryController extends HttpServlet {
 	        totalScore += diary.getEmotionScore();
 	    }
 	    double averageScore = count > 0 ? totalScore / count : 0.0;
-
+	    
+	    // 감정 분석 메시지 생성
+	    String analysisMessage = generateAnalysisMessage(averageScore);
+	    
 	    // 결과를 요청 속성에 추가
 	    request.setAttribute("diaries", diaries);
 	    request.setAttribute("averageScore", averageScore);
 	    request.setAttribute("startDate", startDate);
 	    request.setAttribute("endDate", endDate);
-
+	    request.setAttribute("analysisMessage", analysisMessage);
+	    
+	    System.out.println(startDate);
+	    System.out.println(endDate);
+	    
 	    // 분석 결과를 보여줄 JSP로 포워드
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/analyze/result.jsp");
 	    dispatcher.forward(request, response);
 	}
+	
+	// 감정 점수에 따른 메시지 생성
+	private String generateAnalysisMessage(double averageScore) {
+	    if (averageScore >= 0.6) {
+	        return "이 기간 동안 매우 긍정적인 감정을 느끼셨네요! 지금처럼 긍정적인 기운을 유지하세요!";
+	    } else if (averageScore >= 0.2) {
+	        return "대체로 긍정적인 감정을 느끼셨습니다. 행복을 주는 것들에 집중해 보세요.";
+	    } else if (averageScore >= -0.2) {
+	        return "감정이 대체로 중립적이네요. 하루를 더욱 보람차게 만들 수 있는 요소를 생각해보세요.";
+	    } else if (averageScore >= -0.6) {
+	        return "최근에 조금 우울한 기분이 드셨던 것 같아요. 충분한 휴식을 취하고 스스로를 돌보는 시간을 가져보세요.";
+	    } else {
+	        return "이 기간 동안 감정적으로 많이 힘드셨던 것 같아요. 자신을 잘 돌보고 필요하다면 도움을 요청하는 것을 고려해보세요.";
+	    }
+	}
+
 
     
 }
