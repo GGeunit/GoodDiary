@@ -123,6 +123,43 @@ public class DiaryDAO {
         }
         return diaries;
     }
+    
+ // 특정 기간의 다이어리 조회
+    public List<Diary> getDiariesByDateRange(int userId, String startDate, String endDate) throws SQLException {
+        List<Diary> diaries = new ArrayList<>();
+        String query = "SELECT * FROM emotionRecord WHERE user_id=? and (date BETWEEN ? AND ?) ORDER BY date DESC";
+
+        try (Connection conn = open();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, startDate);
+            pstmt.setString(3, endDate);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Diary diary = new Diary();
+                    diary.setRecordId(rs.getInt("record_id"));
+                    diary.setAid(rs.getInt("user_id"));
+                    diary.setTitle(rs.getString("title"));
+                    diary.setDate(rs.getString("date"));
+                    diary.setEmotion(rs.getString("emotion"));
+                    diary.setContent(rs.getString("content"));
+                    diary.setEmotionScore(rs.getDouble("emotion_score"));
+                    diaries.add(diary);
+                    System.out.println(diary.getTitle());
+                }
+            }
+        } catch (SQLException e) {
+            // 예외 메시지 및 스택 트레이스 출력
+            System.err.println("Error occurred while fetching diaries by date range:");
+            e.printStackTrace();
+            throw e; // 예외를 다시 던져 호출 계층에서 처리되도록 설정
+        }
+        return diaries;
+    }
+
+    
+    
 
 
 }

@@ -48,6 +48,8 @@ public class DiaryController extends HttpServlet {
                 case "delete":
                     deleteDiary(request, response);
                     break;
+                case "analyze":
+                    analyze(request, response);
                 default:
                     listDiaries(request, response);
                     break;
@@ -158,6 +160,45 @@ public class DiaryController extends HttpServlet {
 	        return "Very Negative"; // 매우 부정적
 	    }
 	}
+
 	
-	
+	private void analyze(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 세션에서 사용자 정보 가져오기
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
+
+        if (currentUser == null) {
+            // 로그인 상태가 아니면 로그인 페이지로 리다이렉트
+            response.sendRedirect("/GoodDiary/user/login.jsp?error=notLoggedIn");
+            return;
+        }
+
+        // 현재 사용자의 userId로 다이어리 목록 가져오기
+        int userId = currentUser.getUserId();
+	    String startDate = request.getParameter("start_date"); // 요청에서 시작 날짜 가져오기
+	    String endDate = request.getParameter("end_date"); // 요청에서 종료 날짜 가져오기
+
+	    // 지정된 기간의 다이어리 가져오기
+	    List<Diary> diaries = dao.getDiariesByDateRange(userId, startDate, endDate);
+
+	    // 감정 점수 평균 계산
+	    double totalScore = 0.0;
+	    int count = diaries.size();
+	    for (Diary diary : diaries) {
+	        totalScore += diary.getEmotionScore();
+	    }
+	    double averageScore = count > 0 ? totalScore / count : 0.0;
+
+	    // 결과를 요청 속성에 추가
+	    request.setAttribute("diaries", diaries);
+	    request.setAttribute("averageScore", averageScore);
+	    request.setAttribute("startDate", startDate);
+	    request.setAttribute("endDate", endDate);
+
+	    // 분석 결과를 보여줄 JSP로 포워드
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("/analyze/result.jsp");
+	    dispatcher.forward(request, response);
+	}
+
+    
 }
