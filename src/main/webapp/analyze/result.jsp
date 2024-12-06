@@ -88,6 +88,28 @@ canvas {
 	background-color: #f9d99a;
 	color: #333;
 }
+
+.btn-back {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #f39c12;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #e67e22;
+    text-decoration: none;
+}
+
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -142,6 +164,8 @@ canvas {
 					</tbody>
 				</table>
 			</div>
+			<a href="/GoodDiary/Diary?action=list" class="btn-back">목록으로</a>
+
 		</div>
 	</div>
 	<script>
