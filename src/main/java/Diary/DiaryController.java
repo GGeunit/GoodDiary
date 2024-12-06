@@ -3,6 +3,8 @@ package Diary;
 import java.io.IOException;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 import user.*;
 
 import jakarta.servlet.RequestDispatcher;
@@ -163,49 +165,51 @@ public class DiaryController extends HttpServlet {
 
 	
 	private void analyze(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // 세션에서 사용자 정보 가져오기
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("user");
+	    HttpSession session = request.getSession();
+	    User currentUser = (User) session.getAttribute("user");
 
-        if (currentUser == null) {
-            // 로그인 상태가 아니면 로그인 페이지로 리다이렉트
-            response.sendRedirect("/GoodDiary/user/login.jsp?error=notLoggedIn");
-            return;
-        }
+	    if (currentUser == null) {
+	        response.sendRedirect("/GoodDiary/user/login.jsp?error=notLoggedIn");
+	        return;
+	    }
 
-        // 현재 사용자의 userId로 다이어리 목록 가져오기
-        int userId = currentUser.getUserId();
-	    String startDate = request.getParameter("startDate"); // 요청에서 시작 날짜 가져오기
-	    String endDate = request.getParameter("endDate"); // 요청에서 종료 날짜 가져오기
+	    int userId = currentUser.getUserId();
+	    String startDate = request.getParameter("startDate");
+	    String endDate = request.getParameter("endDate");
 
-	    // 지정된 기간의 다이어리 가져오기
+	    // 날짜 범위에 따른 다이어리 가져오기
 	    List<Diary> diaries = dao.getDiariesByDateRange(userId, startDate, endDate);
 
-	    // 감정 점수 평균 계산
+	    // 평균 감정 점수 계산
 	    double totalScore = 0.0;
-	    int count = diaries.size();
-	    for (Diary diary : diaries) {
-	        totalScore += diary.getEmotionScore();
+	    int count = diaries != null ? diaries.size() : 0;
+	    if (diaries != null) {
+	        for (Diary diary : diaries) {
+	            totalScore += diary.getEmotionScore();
+	        }
 	    }
 	    double averageScore = count > 0 ? totalScore / count : 0.0;
-	    
-	    // 감정 분석 메시지 생성
+
+	    // 분석 메시지 생성
 	    String analysisMessage = generateAnalysisMessage(averageScore);
-	    
-	    // 결과를 요청 속성에 추가
-	    request.setAttribute("diaries", diaries);
+
+	    // JSON 변환
+	    Gson gson = new Gson();
+	    String diariesJson = gson.toJson(diaries);
+
+	    // JSP로 데이터 전달
+	    request.setAttribute("diaries", diaries); // JSP에서 다이어리 데이터 사용
+	    request.setAttribute("diariesJson", diariesJson); // 차트용 JSON 데이터
 	    request.setAttribute("averageScore", averageScore);
 	    request.setAttribute("startDate", startDate);
 	    request.setAttribute("endDate", endDate);
 	    request.setAttribute("analysisMessage", analysisMessage);
-	    
-	    System.out.println(startDate);
-	    System.out.println(endDate);
-	    
-	    // 분석 결과를 보여줄 JSP로 포워드
+
+	    // JSP로 포워드
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/analyze/result.jsp");
 	    dispatcher.forward(request, response);
 	}
+
 	
 	// 감정 점수에 따른 메시지 생성
 	private String generateAnalysisMessage(double averageScore) {
