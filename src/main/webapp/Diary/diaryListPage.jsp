@@ -122,13 +122,23 @@
 			    <c:forEach var="diary" items="${diaries}">
 			        <div class="diary-item">
 			            <a href="/GoodDiary/Diary?action=view&id=${diary.recordId}" class="diary-title">${diary.title}</a>
-			            <div class="diary-date">${diary.date}</div>
+						<div class="diary-date">${diary.date}</div>
     			        <c:choose>
-			                <c:when test="${diary.emotion == '기쁨'}"><span class="emoji">😊</span></c:when>
-			                <c:when test="${diary.emotion == '슬픔'}"><span class="emoji">😭</span></c:when>
-			                <c:when test="${diary.emotion == '화남'}"><span class="emoji">😠</span></c:when>
-			                <c:otherwise>🤔</c:otherwise>
+                            <c:when test="${diary.emotion == 'Very Positive'}"><span class="emoji">😁</span></c:when>
+                            <c:when test="${diary.emotion == 'Positive'}"><span class="emoji">😊</span></c:when>
+                            <c:when test="${diary.emotion == 'Neutral'}"><span class="emoji">😐</span></c:when>
+                            <c:when test="${diary.emotion == 'Negative'}"><span class="emoji">😔</span></c:when>
+                            <c:when test="${diary.emotion == 'Very Negative'}"><span class="emoji">😡</span></c:when>
+                            <c:otherwise><span class="emoji">🤔</span></c:otherwise>
 			            </c:choose>
+			            (${diary.emotionScore })
+			            
+                         <!-- 삭제 버튼 -->
+		                <form action="/GoodDiary/Diary" method="get" class="delete-form" onsubmit="return confirmDelete();">
+		                    <input type="hidden" name="action" value="delete">
+		                    <input type="hidden" name="id" value="${diary.recordId}">
+		                    <button type="submit" class="delete-button">삭제</button>
+		                </form>
 			        </div>
 			    </c:forEach>
 				</c:if>
@@ -139,5 +149,12 @@
             </div>
         </div>
 		<jsp:include page="sidebar.jsp" />
+		
+		<script>
+		    // 삭제 확인 함수
+		    function confirmDelete() {
+		        return confirm("정말로 이 일기를 삭제하시겠습니까?");
+		    }
+		</script>
 </body>
 </html>

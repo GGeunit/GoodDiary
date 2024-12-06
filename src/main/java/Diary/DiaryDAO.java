@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DiaryDAO {
     final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    final String JDBC_URL = "jdbc:mysql://43.203.31.41:3309/GoodDiary";
+    final String JDBC_URL = "jdbc:mysql://appledolphin.xyz:3309/GoodDiary";
 
     // DB 연결을 가져오는 메서드
     public Connection open() {
@@ -22,13 +22,14 @@ public class DiaryDAO {
 
     // CREATE: 새로운 다이어리 추가
     public void addDiary(Diary diary) throws SQLException {
-        String query = "INSERT INTO emotionRecord (user_id, title, date, emotion, content) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO emotionRecord (user_id, title, date, emotion, content, emotion_score) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = open(); PreparedStatement pstmt = conn.prepareStatement(query)) {
         	pstmt.setInt(1, diary.getAid());
             pstmt.setString(2, diary.getTitle());
             pstmt.setString(3, diary.getDate());
             pstmt.setString(4, diary.getEmotion());
             pstmt.setString(5, diary.getContent());
+            pstmt.setDouble(6, diary.getEmotionScore());
             pstmt.executeUpdate();
         }
     }
@@ -38,7 +39,6 @@ public class DiaryDAO {
         List<Diary> diaries = new ArrayList<>();
         String query = "SELECT * FROM emotionRecord order by date desc";
         try (Connection conn = open(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
-        	System.out.println("Fetching all diaries...");
             while (rs.next()) {
                 Diary diary = new Diary();
                 diary.setAid(rs.getInt("record_id"));
@@ -54,12 +54,9 @@ public class DiaryDAO {
 
     // READ ONE: 특정 다이어리 조회
     public Diary getDiaryById(int aid) throws SQLException {
-    	System.out.println("Diary fetched: " + aid);
         String query = "SELECT * FROM emotionRecord WHERE record_id = ?";
         try (Connection conn = open(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-        	System.out.println("Executing query: " + pstmt);
             pstmt.setInt(1, aid);
-            System.out.println("Executing query: " + pstmt);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 Diary diary = new Diary();
@@ -69,8 +66,6 @@ public class DiaryDAO {
                 diary.setDate(rs.getDate("date").toString());
                 diary.setEmotion(rs.getString("emotion"));
                 diary.setContent(rs.getString("content"));
-                System.out.println("Diary fetched: " + diary.getTitle());
-                System.out.println("Diary fetched: " + diary.getContent());
                 return diary;
             }
         }
@@ -116,6 +111,7 @@ public class DiaryDAO {
                     diary.setDate(rs.getString("date"));
                     diary.setEmotion(rs.getString("emotion"));
                     diary.setContent(rs.getString("content"));
+                    diary.setEmotionScore(rs.getDouble("emotion_score"));
                     diaries.add(diary);
                 }
             }
@@ -127,6 +123,45 @@ public class DiaryDAO {
         }
         return diaries;
     }
+    
+ // 특정 기간의 다이어리 조회
+    public List<Diary> getDiariesByDateRange(int userId, String startDate, String endDate) throws SQLException {
+        List<Diary> diaries = new ArrayList<>();
+        String query = "SELECT * FROM emotionRecord WHERE user_id=? and (date BETWEEN ? AND ?) ORDER BY date DESC";
+
+        try (Connection conn = open();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        	System.out.println(query);
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, startDate);
+            pstmt.setString(3, endDate);
+            System.out.println(query);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Diary diary = new Diary();
+                    diary.setRecordId(rs.getInt("record_id"));
+                    diary.setAid(rs.getInt("user_id"));
+                    diary.setTitle(rs.getString("title"));
+                    diary.setDate(rs.getString("date"));
+                    diary.setEmotion(rs.getString("emotion"));
+                    diary.setContent(rs.getString("content"));
+                    diary.setEmotionScore(rs.getDouble("emotion_score"));
+                    diaries.add(diary);
+                    System.out.println(diary.getTitle());
+                }
+            }
+        } catch (SQLException e) {
+            // 예외 메시지 및 스택 트레이스 출력
+            System.err.println("Error occurred while fetching diaries by date range:");
+            e.printStackTrace();
+            throw e; // 예외를 다시 던져 호출 계층에서 처리되도록 설정
+        }
+        return diaries;
+    }
+
+    
+    
 
 
 }

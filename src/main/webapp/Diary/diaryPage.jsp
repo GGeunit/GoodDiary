@@ -178,21 +178,7 @@
                     <input type="hidden" name="user_id" value="${user.userId}">
                     <div class="form-group">
                         <input type="text" name="title" placeholder="제목">
-                        <input type="date" name="date">
-                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                            <label style="display: flex; align-items: center; margin-right: 10px; cursor: pointer;">
-                                <input type="radio" name="emotion" value="기쁨" required style="margin-right: 5px;">
-                                <span class="emoji">😊</span>
-                            </label>
-                            <label style="display: flex; align-items: center; margin-right: 10px; cursor: pointer;">
-                                <input type="radio" name="emotion" value="슬픔" required style="margin-right: 5px;">
-                                <span class="emoji">😭</span>
-                            </label>
-                            <label style="display: flex; align-items: center; cursor: pointer;">
-                                <input type="radio" name="emotion" value="화남" required style="margin-right: 5px;">
-                                <span class="emoji">😠</span>
-                            </label>
-                        </div>
+                        <input type="date" name="date" id="dateInput">
                     </div>
                     <textarea class="textarea" name="content" placeholder="감정 기록"></textarea>
                     <div class="button-group">
