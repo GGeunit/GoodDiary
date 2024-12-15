@@ -127,7 +127,7 @@ public class DiaryDAO {
  // 특정 기간의 다이어리 조회
     public List<Diary> getDiariesByDateRange(int userId, String startDate, String endDate) throws SQLException {
         List<Diary> diaries = new ArrayList<>();
-        String query = "SELECT * FROM emotionRecord WHERE user_id=? and (date BETWEEN ? AND ?) ORDER BY date DESC";
+        String query = "SELECT * FROM emotionRecord WHERE user_id=? and (date BETWEEN ? AND ?) ORDER BY date asc";
 
         try (Connection conn = open();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
