@@ -168,6 +168,21 @@
             color: orange;
         }
     </style>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const dateInput = document.getElementById("dateInput");
+
+        form.onsubmit = function (event) {
+            if (!dateInput.value) {
+                alert("날짜를 입력해주세요!");
+                dateInput.focus();
+                event.preventDefault(); // 폼 제출 방지
+            }
+        };
+    });
+	</script>
+    
 </head>
 <body>
     <div class="container">

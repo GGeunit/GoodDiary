@@ -125,6 +125,9 @@ canvas {
 			<div>
 				<h3>분석 메시지</h3>
 				<p><%= request.getAttribute("analysisMessage") %></p>
+				    <div class="analysis-image">
+			        <img src="/GoodDiary/images/${imageName}" alt="감정 분석 이미지" style="max-width: 100%; height: auto; margin-top: 20px;">
+			    </div>
 			</div>
 			<div class="chart-container">
 				<canvas id="emotionChart"></canvas>

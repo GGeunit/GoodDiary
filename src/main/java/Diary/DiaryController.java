@@ -59,7 +59,7 @@ public class DiaryController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             ctx.log("Error processing GET request: " + action);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Server error occurred.");
+//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Server error occurred.");
         }
     }
 
@@ -72,6 +72,9 @@ public class DiaryController extends HttpServlet {
                 case "add":
                     addDiary(request, response);
                     break;
+                case "confirm":
+                    confirmDiary(request, response);
+                    break;
                 default:
                     response.sendRedirect("Diary?action=list");
                     break;
@@ -80,6 +83,7 @@ public class DiaryController extends HttpServlet {
             e.printStackTrace();
             ctx.log("Error processing POST request: " + action);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Server error occurred.");
+            return;
         }
     }
 
@@ -105,6 +109,7 @@ public class DiaryController extends HttpServlet {
         // JSP로 포워드
         RequestDispatcher dispatcher = request.getRequestDispatcher("Diary/diaryListPage.jsp");
         dispatcher.forward(request, response);
+        return;
     }
 
     // View a single diary entry
@@ -116,26 +121,52 @@ public class DiaryController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    // Add a new diary entry
     private void addDiary(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Diary diary = new Diary();
         diary.setTitle(request.getParameter("title"));
         diary.setDate(request.getParameter("date"));
         diary.setContent(request.getParameter("content"));
         diary.setAid(Integer.parseInt(request.getParameter("user_id")));
-        
-        
+
+        // 감정 분석 실행
         double emotionScore = diaryService.emotionAnalyze(diary.getContent());
         String emotionLevel = mapScoreToEmotion(emotionScore);
-        
-        diary.setEmotion(emotionLevel); // 감정 필드 추가
+
+        // 분석 결과를 일기 객체에 설정
+        diary.setEmotionScore(emotionScore);
+        diary.setEmotion(emotionLevel);
+
+
+        // JSP로 데이터 전달
+        request.setAttribute("diary", diary);
+
+        // 결과 확인 페이지로 포워드
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Diary/addCheck.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void confirmDiary(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	
+    	Double emotionScore = Double.parseDouble(request.getParameter("emotionScore"));
+    	
+        Diary diary = new Diary();
+        diary.setTitle(request.getParameter("title"));
+        diary.setDate(request.getParameter("date"));
+        diary.setContent(request.getParameter("content"));
+        diary.setAid(Integer.parseInt(request.getParameter("user_id")));
         diary.setEmotionScore(emotionScore);
         
-        System.out.println("현재 내용 감정 : " + emotionLevel);
         
+        String emotionLevel = mapScoreToEmotion(emotionScore);
+        diary.setEmotion(emotionLevel);
+        
+        // DB에 저장
         dao.addDiary(diary);
+
+        // 리스트 페이지로 리다이렉트
         response.sendRedirect("Diary?action=list");
     }
+
 
     // Delete a diary entry
     private void deleteDiary(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -169,7 +200,7 @@ public class DiaryController extends HttpServlet {
 	    User currentUser = (User) session.getAttribute("user");
 
 	    if (currentUser == null) {
-	        response.sendRedirect("/GoodDiary/user/login.jsp?error=notLoggedIn");
+	        response.sendRedirect("/GoodDiary/user/login.jsp");
 	        return;
 	    }
 
@@ -179,7 +210,7 @@ public class DiaryController extends HttpServlet {
 
 	    // 날짜 범위에 따른 다이어리 가져오기
 	    List<Diary> diaries = dao.getDiariesByDateRange(userId, startDate, endDate);
-
+	    
 	    // 평균 감정 점수 계산
 	    double totalScore = 0.0;
 	    int count = diaries != null ? diaries.size() : 0;
@@ -192,7 +223,8 @@ public class DiaryController extends HttpServlet {
 
 	    // 분석 메시지 생성
 	    String analysisMessage = generateAnalysisMessage(averageScore);
-
+	    String imageName = getEmotionImageName(averageScore);
+	    
 	    // JSON 변환
 	    Gson gson = new Gson();
 	    String diariesJson = gson.toJson(diaries);
@@ -204,10 +236,13 @@ public class DiaryController extends HttpServlet {
 	    request.setAttribute("startDate", startDate);
 	    request.setAttribute("endDate", endDate);
 	    request.setAttribute("analysisMessage", analysisMessage);
+	    request.setAttribute("imageName", imageName);
 
 	    // JSP로 포워드
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/analyze/result.jsp");
 	    dispatcher.forward(request, response);
+	    
+	    return;
 	}
 
 	
@@ -223,6 +258,21 @@ public class DiaryController extends HttpServlet {
 	        return "최근에 조금 우울한 기분이 드셨던 것 같아요. 충분한 휴식을 취하고 스스로를 돌보는 시간을 가져보세요.";
 	    } else {
 	        return "이 기간 동안 감정적으로 많이 힘드셨던 것 같아요. 자신을 잘 돌보고 필요하다면 도움을 요청하는 것을 고려해보세요.";
+	    }
+	}
+	
+	// 감정 점수에 따른 사진 이름 리턴
+	private String getEmotionImageName(double averageScore) {
+	    if (averageScore >= 0.6) {
+	        return "smile.jpg";
+	    } else if (averageScore >= 0.2) {
+	        return "smile.jpg";
+	    } else if (averageScore >= -0.2) {
+	        return "neutral.jpg";
+	    } else if (averageScore >= -0.6) {
+	        return "bad.jpg";
+	    } else {
+	        return "bad.jpg";
 	    }
 	}
 
