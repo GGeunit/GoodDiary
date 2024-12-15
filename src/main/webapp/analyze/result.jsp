@@ -109,6 +109,35 @@ canvas {
     text-decoration: none;
 }
 
+.diary-list table {
+    width: 100%;
+    table-layout: fixed; /* 열 너비 고정 */
+    border-collapse: collapse;
+}
+
+.diary-list th, .diary-list td {
+    border: 1px solid #dddddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.diary-list th {
+    background-color: #f9d99a;
+    color: #333;
+}
+
+.diary-list th:nth-child(1),
+.diary-list td:nth-child(1) {
+    width: 20%; /* 작성 날짜 칸 너비 */
+    text-align: center;
+}
+
+.diary-list th:nth-child(2),
+.diary-list td:nth-child(2) {
+    width: 80%; /* 내용 칸 너비 */
+}
+
+
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
