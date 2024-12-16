@@ -58,4 +58,9 @@
         transform: scale(1.05);
         font-size: 17px;
     }
+    .sidebar {
+    	margin-top: 85px;
+    	height: 53%;
+    	border-radius: 10px;
+    }
 </style>
