@@ -60,7 +60,7 @@
     }
     .sidebar {
     	margin-top: 85px;
-    	height: 53%;
+    	height: auto;
     	border-radius: 10px;
     }
 </style>
