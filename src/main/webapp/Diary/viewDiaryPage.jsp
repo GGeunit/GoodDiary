@@ -54,9 +54,10 @@
             text-align: center;
             padding: 10px;
             font-size: 20px;
-            color: #5c5c5c;
+            color: black;
             border-radius: 10px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
 
         .diary-detail {
@@ -67,19 +68,22 @@
 
         .diary-title {
             font-size: 24px;
-            color: #5c5c5c;
+            color: black;
             text-align: center;
+            font-weight: bold;
         }
 
         .diary-date {
             font-size: 16px;
             color: #888;
             text-align: right;
+            font-weight: bold;
         }
 
         .diary-emotion {
             font-size: 18px;
             color: #ff7070;
+            font-weight: bold;
         }
 
         .diary-content {
